@@ -2,8 +2,8 @@
   "compilerOptions": {
     "types": []
   },
-  "extends": "../../../tsconfig.json",
+  "extends": "../../../../tsconfig.json",
   "include": [
-    "editor/*.ts"
+    "**/*.ts"
   ]
 }

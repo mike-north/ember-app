@@ -1,5 +1,5 @@
 {
-  "name": "@ember-app/monaco",
+  "name": "@ember-app/code-editor",
   "keywords": [
     "ember-addon"
   ],
@@ -7,9 +7,7 @@
     "ember-cli-htmlbars": "*",
     "ember-cli-babel": "*",
     "ember-cli-typescript": "*",
-    "broccoli-typescript-compiler": "*"
-  },
-  "devDependencies": {
+    "broccoli-typescript-compiler": "*",
     "ember-decorators": "*",
     "monaco-editor": "*"
   }

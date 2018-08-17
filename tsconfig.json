@@ -25,22 +25,22 @@
       ],
       "@ember-app/ui/*": [
         "app/*",
-        "lib/@ember-app/monaco/app/*"
+        "lib/@ember-app/code-editor/app/*"
       ],
       "*": [
         "types/*"
       ],
-      "@ember-app/monaco": [
-        "lib/@ember-app/monaco/addon"
+      "@ember-app/code-editor": [
+        "lib/@ember-app/code-editor/addon"
       ],
-      "@ember-app/monaco/*": [
-        "lib/@ember-app/monaco/addon/*"
+      "@ember-app/code-editor/*": [
+        "lib/@ember-app/code-editor/addon/*"
       ],
-      "@ember-app/monaco/test-support": [
-        "lib/@ember-app/monaco/addon-test-support"
+      "@ember-app/code-editor/test-support": [
+        "lib/@ember-app/code-editor/addon-test-support"
       ],
-      "@ember-app/monaco/test-support/*": [
-        "lib/@ember-app/monaco/addon-test-support/*"
+      "@ember-app/code-editor/test-support/*": [
+        "lib/@ember-app/code-editor/addon-test-support/*"
       ]
     },
     "experimentalDecorators": true
@@ -49,7 +49,7 @@
     "app/**/*",
     "tests/**/*",
     "types/**/*",
-    "lib/@ember-app/monaco/addon/**/*",
-    "lib/@ember-app/monaco/app/**/*"
+    "lib/@ember-app/code-editor/addon/**/*",
+    "lib/@ember-app/code-editor/app/**/*"
   ]
 }

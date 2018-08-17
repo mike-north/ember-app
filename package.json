@@ -62,6 +62,7 @@
     "rollup-plugin-babel": "^3.0.7",
     "rollup-plugin-commonjs": "^9.1.5",
     "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-typescript": "^0.8.1",
     "typescript": "^3.0.1",
     "typescript-eslint-parser": "^18.0.0"
   },
@@ -70,7 +71,7 @@
   },
   "ember-addon": {
     "paths": [
-      "lib/@ember-app/monaco"
+      "lib/@ember-app/code-editor"
     ]
   },
   "dependencies": {

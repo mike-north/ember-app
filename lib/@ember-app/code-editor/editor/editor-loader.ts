@@ -1,7 +1,3 @@
-declare global {
-  const monaco: { editor: any } | undefined;
-  function require(deps: string[], cb: ((...args: any[]) => any)): void;
-}
 
 interface EditorConfig {
   theme: string;
@@ -12,15 +8,18 @@ interface EditorConfig {
 export function setupEditor(cfg: EditorConfig) {
   require(['vs/editor/editor.main'], function () {
     if (typeof monaco !== "undefined") {
-
+      const wrapper = window.document.getElementById('monaco-editor-wrapper');
+      if (!wrapper) throw new Error('No wrapper found');
       const { language, theme, value } = cfg;
       var editor = monaco.editor.create(
-        window.document.getElementById('monaco-editor-wrapper'), {
+        wrapper, {
           language,
           theme,
-          value
+          value,
+          automaticLayout: true
         }
       );
+      window.editor = editor;
 
       var origin = window.location.origin;
       // TODO: when the code is autocompleted we don't get this even firing
@@ -32,6 +31,18 @@ export function setupEditor(cfg: EditorConfig) {
         if (!target) return;
         window.top.postMessage({updatedCode: target.value}, origin);
       });
+
+      // function installResizeWatcher(el: HTMLElement, fn: (...args: any[]) => any, interval: number){
+      //   let offset = {width: el.offsetWidth, height: el.offsetHeight}
+      //   setInterval(()=>{
+      //     let newOffset = {width: el.offsetWidth, height: el.offsetHeight}
+      //     if(offset.height!=newOffset.height||offset.width!=newOffset.width){
+      //       offset = newOffset
+      //       fn()
+      //     }
+      //   }, interval)
+      // }
+      // installResizeWatcher(wrapper, editor.layout.bind(editor), 2000)
     }
   });
 }

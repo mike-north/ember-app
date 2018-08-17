@@ -6,3 +6,5 @@ Penpal.connectToParent({
     setupEditor
   }
 });
+
+export default {};
