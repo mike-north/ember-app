@@ -1,0 +1,55 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noEmitOnError": false,
+    "noEmit": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "baseUrl": ".",
+    "module": "es6",
+    "paths": {
+      "@ember-app/ui/tests/*": [
+        "tests/*"
+      ],
+      "@ember-app/ui/*": [
+        "app/*",
+        "lib/@ember-app/monaco/app/*"
+      ],
+      "*": [
+        "types/*"
+      ],
+      "@ember-app/monaco": [
+        "lib/@ember-app/monaco/addon"
+      ],
+      "@ember-app/monaco/*": [
+        "lib/@ember-app/monaco/addon/*"
+      ],
+      "@ember-app/monaco/test-support": [
+        "lib/@ember-app/monaco/addon-test-support"
+      ],
+      "@ember-app/monaco/test-support/*": [
+        "lib/@ember-app/monaco/addon-test-support/*"
+      ]
+    },
+    "experimentalDecorators": true
+  },
+  "include": [
+    "app/**/*",
+    "tests/**/*",
+    "types/**/*",
+    "lib/@ember-app/monaco/addon/**/*",
+    "lib/@ember-app/monaco/app/**/*"
+  ]
+}
