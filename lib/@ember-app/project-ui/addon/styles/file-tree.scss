@@ -1,30 +1,36 @@
 @import './variables';
 
 .file-tree {
+  // Colors
+  $text-color: $lightest-grey;
+  $file-text-color: $text-color;
+  $folder-text-color: $light-grey;
   $backround-color: $darker-grey;
-  $text-color: #bbb;
-  $file-text-color: #fff;
-  $folder-text-color: #bbb;
+  // Icon sizes
   $file-icon-size: 16px;
   $folder-icon-size: 20px;
   $biggest-icon-size: max($folder-icon-size, $file-icon-size);
-  margin-bottom: 0px;
-  margin-top: 0px;
+  // Dimensions
+  $item-height: 1.3rem;
+  $item-space-v: 0.1rem;
+  $font-size: 0.8rem;
+  $last-child-bottom-pad: 3px;
+  $icon-right-pad: 8px;
+  padding: 0;
+  margin: 0;
   background: $backround-color;
-  padding: 5px;
-  margin-left: 0;
-  font-size: 0.8rem;
+  font-size: $font-size;
+  line-height: $item-height;
   font-weight: 100;
-  line-height: 1.3rem;
-  user-select: none;
   overflow: scroll;
+  list-style: none;
+  position: relative;
   & > .file-tree__child-list {
     padding-left: 0;
   }
   li {
-    position: relative;
-    list-style: none;
     color: $folder-text-color;
+    user-select: none;
     &.file-tree__file {
       margin-left: -1px !important;
       a {
@@ -33,10 +39,6 @@
         background-position-y: ($folder-icon-size - $file-icon-size)/2;
         background-size: $file-icon-size;
         background-repeat: no-repeat;
-        color: $file-text-color;
-        padding-left: $biggest-icon-size + 8px;
-        text-decoration: none;
-        display: block;
         &[href$='.js'] {
           background-image: url(/img/file-type/js.svg);
         }
@@ -57,6 +59,36 @@
         }
       }
     }
+    a, label {
+      color: $file-text-color;
+      padding-left: $biggest-icon-size + $icon-right-pad;
+      text-decoration: none;
+      display: block;
+      z-index: 2;
+      .name {
+        z-index: 1;
+        position: relative;
+      }
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: $item-height;
+      }
+      &:hover {
+        color: #fff;
+        &:before {
+          background: rgba(0, 0, 0, 0.3);
+        }
+      }
+    }
+    &:last-child a,
+    &:last-child label {
+      &:before {
+        padding-bottom: $last-child-bottom-pad;
+      }
+    }
     input {
       position: absolute;
       left: 0;
@@ -68,8 +100,7 @@
       width: 2em;
       top: 0;
       + .file-tree__child-list {
-        margin: -0.938em 0 0 -44px;
-        /* 15px */
+        margin-top: -1em;
         height: 1em;
         > li {
           display: none;
@@ -83,21 +114,22 @@
       background-size: $folder-icon-size;
       cursor: pointer;
       display: block;
-      padding-left: $biggest-icon-size + 8px;
+      padding-left: $biggest-icon-size + $icon-right-pad;
     }
     input:checked + .file-tree__child-list {
-      background: $backround-color url(/img/file-tree/default_folder_opened.svg) 0 -3px no-repeat;
+      background: $backround-color url(/img/file-tree/default_folder_opened.svg) 0 -4px no-repeat;
       background-size: $folder-icon-size;
       margin: -1.2em 0 0 0;
       /* 20px */
-      padding-top: 1.4em;
+      padding-top: 1.2em;
       height: auto;
       > li {
         display: block;
-        margin: 0 0 0.125em;
+        margin: 0;
         /* 2px */
-        &:last-child {
-          margin: 0 0 0.063em;
+        &:last-child,
+        &:last-child:before {
+          padding-bottom: $last-child-bottom-pad;
           /* 1px */
         }
       }

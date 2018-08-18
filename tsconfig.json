@@ -67,6 +67,12 @@
       ],
       "@ember-app/project-ui/test-support/*": [
         "lib/@ember-app/project-ui/addon-test-support/*"
+      ],
+      "@ember-app/core/test-support": [
+        "lib/@ember-app/core/addon-test-support"
+      ],
+      "@ember-app/core/test-support/*": [
+        "lib/@ember-app/core/addon-test-support/*"
       ]
     },
     "experimentalDecorators": true

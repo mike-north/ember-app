@@ -168,6 +168,40 @@
   dependencies:
     "@glimmer/di" "^0.2.0"
 
+"@orbit/coordinator@^0.15.14":
+  version "0.15.19"
+  resolved "https://registry.yarnpkg.com/@orbit/coordinator/-/coordinator-0.15.19.tgz#9ea6415af4eb4f54d298ac394ac685eac03b6117"
+
+"@orbit/core@^0.15.14", "@orbit/core@^0.15.19":
+  version "0.15.19"
+  resolved "https://registry.yarnpkg.com/@orbit/core/-/core-0.15.19.tgz#9953bdf5f68a183405a69a23fe089d5713a93e96"
+  dependencies:
+    "@orbit/utils" "^0.15.19"
+
+"@orbit/data@^0.15.14", "@orbit/data@^0.15.19":
+  version "0.15.19"
+  resolved "https://registry.yarnpkg.com/@orbit/data/-/data-0.15.19.tgz#7041d73dd0658af4d95dffd716f68402fc39bdd9"
+  dependencies:
+    "@orbit/core" "^0.15.19"
+    "@orbit/utils" "^0.15.19"
+
+"@orbit/immutable@^0.15.14":
+  version "0.15.14"
+  resolved "https://registry.yarnpkg.com/@orbit/immutable/-/immutable-0.15.14.tgz#8c6958841d45f7f947282d8f39d88094d20bd152"
+
+"@orbit/store@^0.15.14":
+  version "0.15.19"
+  resolved "https://registry.yarnpkg.com/@orbit/store/-/store-0.15.19.tgz#8fced4a4de687e8fe30ffc08fcfa69a1f8944dc9"
+  dependencies:
+    "@orbit/core" "^0.15.19"
+    "@orbit/data" "^0.15.19"
+    "@orbit/immutable" "^0.15.14"
+    "@orbit/utils" "^0.15.19"
+
+"@orbit/utils@^0.15.14", "@orbit/utils@^0.15.19":
+  version "0.15.19"
+  resolved "https://registry.yarnpkg.com/@orbit/utils/-/utils-0.15.19.tgz#5e1032c112118ef5e841439ad4eabdcc83e161bc"
+
 "@types/acorn@^4.0.3":
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/@types/acorn/-/acorn-4.0.3.tgz#d1f3e738dde52536f9aad3d3380d14e448820afd"
@@ -379,6 +413,14 @@ aot-test-generators@^0.1.0:
   resolved "https://registry.yarnpkg.com/aot-test-generators/-/aot-test-generators-0.1.0.tgz#43f0f615f97cb298d7919c1b0b4e6b7310b03cd0"
   dependencies:
     jsesc "^2.5.0"
+
+applause@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/applause/-/applause-1.2.2.tgz#a8468579e81f67397bb5634c29953bedcd0f56c0"
+  dependencies:
+    cson-parser "^1.1.0"
+    js-yaml "^3.3.0"
+    lodash "^3.10.0"
 
 aproba@^1.0.3:
   version "1.2.0"
@@ -1178,6 +1220,12 @@ binary-extensions@^1.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/binaryextensions/-/binaryextensions-2.1.1.tgz#3209a51ca4a4ad541a3b8d3d6a6d5b83a2485935"
 
+bite-log@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/bite-log/-/bite-log-1.6.2.tgz#250418786849a74430ddc3534ba1d726812ef79f"
+  dependencies:
+    ts-std "^0.6.2"
+
 blank-object@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/blank-object/-/blank-object-1.0.2.tgz#f990793fbe9a8c8dd013fb3219420bec81d5f4b9"
@@ -1414,7 +1462,7 @@ broccoli-funnel-reducer@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/broccoli-funnel-reducer/-/broccoli-funnel-reducer-1.0.0.tgz#11365b2a785aec9b17972a36df87eef24c5cc0ea"
 
-broccoli-funnel@^1.0.0, broccoli-funnel@^1.1.0:
+broccoli-funnel@^1.0.0, broccoli-funnel@^1.1.0, broccoli-funnel@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/broccoli-funnel/-/broccoli-funnel-1.2.0.tgz#cddc3afc5ff1685a8023488fff74ce6fb5a51296"
   dependencies:
@@ -1532,7 +1580,7 @@ broccoli-node-info@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/broccoli-node-info/-/broccoli-node-info-1.1.0.tgz#3aa2e31e07e5bdb516dd25214f7c45ba1c459412"
 
-broccoli-persistent-filter@^1.1.6, broccoli-persistent-filter@^1.4.3:
+broccoli-persistent-filter@^1.1.6, broccoli-persistent-filter@^1.2.0, broccoli-persistent-filter@^1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/broccoli-persistent-filter/-/broccoli-persistent-filter-1.4.3.tgz#3511bc52fc53740cda51621f58a28152d9911bc1"
   dependencies:
@@ -1567,6 +1615,14 @@ broccoli-plugin@^1.0.0, broccoli-plugin@^1.1.0, broccoli-plugin@^1.2.0, broccoli
     quick-temp "^0.1.3"
     rimraf "^2.3.4"
     symlink-or-copy "^1.1.8"
+
+broccoli-replace@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/broccoli-replace/-/broccoli-replace-0.12.0.tgz#36460a984c45c61731638c53068b0ab12ea8fdb7"
+  dependencies:
+    applause "1.2.2"
+    broccoli-persistent-filter "^1.2.0"
+    minimatch "^3.0.0"
 
 broccoli-rollup@^1.2.0:
   version "1.3.0"
@@ -2014,6 +2070,10 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
+coffee-script@^1.10.0:
+  version "1.12.7"
+  resolved "https://registry.yarnpkg.com/coffee-script/-/coffee-script-1.12.7.tgz#c05dae0cb79591d05b3070a8433a98c9a89ccc53"
+
 collection-visit@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/collection-visit/-/collection-visit-1.0.0.tgz#4bc0373c164bc3291b4d368c829cf1a80a59dca0"
@@ -2235,6 +2295,12 @@ crypto-browserify@3.3.0:
 crypto-random-string@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-1.0.0.tgz#a230f64f568310e1498009940790ec99545bca7e"
+
+cson-parser@^1.1.0:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/cson-parser/-/cson-parser-1.3.5.tgz#7ec675e039145533bf2a6a856073f1599d9c2d24"
+  dependencies:
+    coffee-script "^1.10.0"
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -2928,6 +2994,22 @@ ember-load-initializers@^1.1.0:
   resolved "https://registry.yarnpkg.com/ember-load-initializers/-/ember-load-initializers-1.1.0.tgz#4edacc0f3a14d9f53d241ac3e5561804c8377978"
   dependencies:
     ember-cli-babel "^6.6.0"
+
+ember-orbit@^0.15.6:
+  version "0.15.6"
+  resolved "https://registry.yarnpkg.com/ember-orbit/-/ember-orbit-0.15.6.tgz#599c57998fbbc587297461430d67ec3f82677887"
+  dependencies:
+    "@orbit/coordinator" "^0.15.14"
+    "@orbit/core" "^0.15.14"
+    "@orbit/data" "^0.15.14"
+    "@orbit/immutable" "^0.15.14"
+    "@orbit/store" "^0.15.14"
+    "@orbit/utils" "^0.15.14"
+    broccoli-funnel "^1.2.0"
+    broccoli-merge-trees "^2.0.0"
+    broccoli-replace "^0.12.0"
+    ember-cli-babel "^6.6.0"
+    resolve "^1.3.3"
 
 ember-qunit-decorators@^1.2.0:
   version "1.2.0"
@@ -4543,7 +4625,7 @@ js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
 
-js-yaml@^3.2.5, js-yaml@^3.2.7, js-yaml@^3.6.1, js-yaml@^3.9.1:
+js-yaml@^3.2.5, js-yaml@^3.2.7, js-yaml@^3.3.0, js-yaml@^3.6.1, js-yaml@^3.9.1:
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.12.0.tgz#eaed656ec8344f10f527c6bfa1b6e2244de167d1"
   dependencies:
@@ -5051,6 +5133,10 @@ lodash.values@~2.3.0:
   dependencies:
     lodash.keys "~2.3.0"
 
+lodash@^3.10.0:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
+
 lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@~4.17.10:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
@@ -5248,6 +5334,10 @@ merge@^1.2.0:
 methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
+
+micro-observable@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/micro-observable/-/micro-observable-1.1.4.tgz#57929503abb193f556a0d27edcc912dbd3d8ca54"
 
 micromatch@^2.1.5, micromatch@^2.3.11:
   version "2.3.11"
@@ -7219,6 +7309,10 @@ trim-right@^1.0.1:
   resolved "https://registry.yarnpkg.com/true-case-path/-/true-case-path-1.0.2.tgz#7ec91130924766c7f573be3020c34f8fdfd00d62"
   dependencies:
     glob "^6.0.4"
+
+ts-std@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/ts-std/-/ts-std-0.6.2.tgz#bc76d271d338e7ca543e1b89ce4531ddc0424f8d"
 
 ts-std@^0.7.0:
   version "0.7.0"
