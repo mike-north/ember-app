@@ -2,12 +2,19 @@ import { FileJSON } from "./serializer/file";
 
 export default class ProjectFile {
   constructor(
-    protected name: string,
-    protected contents: string) {}
+    protected _name: string,
+    protected _contents: string) {}
   public toJSON(): FileJSON {
-    const { name, contents } = this;
+    const { _name: name, _contents: contents } = this;
     return {
       name, contents
     }
+  }
+
+  public get name(): string {
+    return this._name;
+  }
+  public get contents(): string {
+    return this._contents;
   }
 }

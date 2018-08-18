@@ -10,6 +10,9 @@ export default class Project {
   protected findFolder(nameOrPath: string[]): ProjectFolder | null {
     return this.rootFolder.findChildFolder(nameOrPath);
   }
+  protected getOrCreateFolder(nameOrPath: string[]): ProjectFolder {
+    return this.rootFolder.getOrCreateChildFolder(nameOrPath);
+  }
 
   public createFile(name: string, contents: string) {
     const path = name.split('/');
@@ -22,9 +25,7 @@ export default class Project {
     } else {
       // some subfolder
       const folderPath = path.slice(0, path.length - 1);
-      const folder = this.findFolder(folderPath);
-      // TODO create folder on the fly
-      if (!folder) throw new Error('folder does not exist');
+      const folder = this.getOrCreateFolder(folderPath);
       folder.addFile(f);
     }
   }

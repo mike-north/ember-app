@@ -26,7 +26,8 @@
       "@ember-app/ui/*": [
         "app/*",
         "lib/@ember-app/code-editor/app/*",
-        "lib/@ember-app/project/app/*"
+        "lib/@ember-app/project/app/*",
+        "lib/@ember-app/project-ui/app/*"
       ],
       "*": [
         "types/*"
@@ -54,6 +55,18 @@
       ],
       "@ember-app/project/test-support/*": [
         "lib/@ember-app/project/addon-test-support/*"
+      ],
+      "@ember-app/project-ui": [
+        "lib/@ember-app/project-ui/addon"
+      ],
+      "@ember-app/project-ui/*": [
+        "lib/@ember-app/project-ui/addon/*"
+      ],
+      "@ember-app/project-ui/test-support": [
+        "lib/@ember-app/project-ui/addon-test-support"
+      ],
+      "@ember-app/project-ui/test-support/*": [
+        "lib/@ember-app/project-ui/addon-test-support/*"
       ]
     },
     "experimentalDecorators": true
@@ -64,6 +77,7 @@
     "types/**/*",
     "lib/@ember-app/code-editor/addon/**/*",
     "lib/@ember-app/code-editor/app/**/*",
-    "lib/@ember-app/project"
+    "lib/@ember-app/project",
+    "lib/@ember-app/project-ui"
   ]
 }

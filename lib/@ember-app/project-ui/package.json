@@ -1,0 +1,13 @@
+{
+  "name": "@ember-app/project-ui",
+  "keywords": [
+    "ember-addon"
+  ],
+  "devDependencies": {
+    "ember-cli-typescript": "*"
+  },
+  "dependencies": {
+    "ember-cli-sass": "*",
+    "ember-cli-htmlbars": "*"
+  }
+}

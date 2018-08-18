@@ -3,7 +3,8 @@
   "keywords": [
     "ember-addon"
   ],
-  "devDependencies": {
-    "ember-cli-typescript": "*"
+  "dependencies": {
+    "ember-cli-typescript": "*",
+    "ember-cli-babel": "*"
   }
 }

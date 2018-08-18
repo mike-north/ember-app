@@ -1,0 +1,8 @@
+<ol class="file-tree__child-list">
+  {{#each @model.childFolders as |folder|}}
+    {{project-editor/file-tree/folder model=folder path=(concat @path '/' folder.name)}}
+  {{/each}}
+  {{#each @model.files as |file|}}
+    {{project-editor/file-tree/file model=file path=(concat @path '/' file.name)}}
+  {{/each}}
+</ol>
