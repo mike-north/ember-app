@@ -7,16 +7,21 @@ import hbs from 'htmlbars-inline-precompile';
 {{#if hasBlock}}
   {{yield (hash
     ui=(hash
-      tree=(component "project-editor/file-tree" project=project)
+      header=(component "project-editor/header" project=project)
+      sidebar=(component "project-editor/sidebar" project=project)
+      browser=(component "project-editor/browser" project=project)
+      codeEditors=(component "project-editor/code-editors" project=project)
+      footer=(component "project-editor/footer" project=project)
     )
   )}}
 {{else}}
-{{project-editor/file-tree project=project}}
-  <div class="editors">
-  {{code-editor
-    code='<h1>Hello HTML</h1>'
-    language="html"}}
-  </div>
+  {{project-editor/header project=project}}
+  <main>
+    {{project-editor/sidebar project=project}}
+    {{project-editor/code-editors project=project}}
+    {{project-editor/browser project=project}}
+  </main>
+  {{project-editor/footer project=project}}
 {{/if}}
 `)
 export default class ProjectEditor extends Component {

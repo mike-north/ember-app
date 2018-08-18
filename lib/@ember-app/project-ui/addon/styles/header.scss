@@ -1,0 +1,13 @@
+.project-editor header {
+  height: $header-height;
+  overflow: hidden;
+  padding: 10px;
+  color: #fff;
+  box-shadow: 0 2px 2px rgba(0,0,0, 0.3);
+  z-index: 900;
+  h1.title {
+    font-weight: 300;
+    font-size: 1.3rem;
+    margin: 0;
+  }
+}

@@ -1,0 +1,15 @@
+@import './variables';
+
+.sidebar {
+  overflow: hidden;
+  background: $darker-grey;
+  details summary {
+    font-size: 0.7em;
+    text-transform: uppercase;
+    color: #ccc;
+    background: #353535;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 7px 0 7px 5px;
+  }
+}

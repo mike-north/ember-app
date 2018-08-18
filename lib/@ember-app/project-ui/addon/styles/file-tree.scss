@@ -1,0 +1,106 @@
+@import './variables';
+
+.file-tree {
+  $backround-color: $darker-grey;
+  $text-color: #bbb;
+  $file-text-color: #fff;
+  $folder-text-color: #bbb;
+  $file-icon-size: 16px;
+  $folder-icon-size: 20px;
+  $biggest-icon-size: max($folder-icon-size, $file-icon-size);
+  margin-bottom: 0px;
+  margin-top: 0px;
+  background: $backround-color;
+  padding: 5px;
+  margin-left: 0;
+  font-size: 0.8rem;
+  font-weight: 100;
+  line-height: 1.3rem;
+  user-select: none;
+  overflow: scroll;
+  & > .file-tree__child-list {
+    padding-left: 0;
+  }
+  li {
+    position: relative;
+    list-style: none;
+    color: $folder-text-color;
+    &.file-tree__file {
+      margin-left: -1px !important;
+      a {
+        background-image: url(/img/file-tree/default_file.svg);
+        background-position-x: ($folder-icon-size - $file-icon-size)/2;
+        background-position-y: ($folder-icon-size - $file-icon-size)/2;
+        background-size: $file-icon-size;
+        background-repeat: no-repeat;
+        color: $file-text-color;
+        padding-left: $biggest-icon-size + 8px;
+        text-decoration: none;
+        display: block;
+        &[href$='.js'] {
+          background-image: url(/img/file-type/js.svg);
+        }
+        &[href$='.html'] {
+          background-image: url(/img/file-type/html.svg);
+        }
+        &[href$='.css'] {
+          background-image: url(/img/file-type/css.svg);
+        }
+        &[href$='.ts'] {
+          background-image: url(/img/file-type/ts.svg);
+        }
+        &[href$='.json'] {
+          background-image: url(/img/file-type/json.svg);
+        }
+        &[href$='.scss'] {
+          background-image: url(/img/file-type/scss.svg);
+        }
+      }
+    }
+    input {
+      position: absolute;
+      left: 0;
+      margin-left: 0;
+      opacity: 0;
+      z-index: 2;
+      cursor: pointer;
+      height: 1.3em;
+      width: 2em;
+      top: 0;
+      + .file-tree__child-list {
+        margin: -0.938em 0 0 -44px;
+        /* 15px */
+        height: 1em;
+        > li {
+          display: none;
+          margin-left: -20px !important;
+          padding-left: 1px;
+        }
+      }
+    }
+    label {
+      background: url(/img/file-tree/default_folder.svg) 0 0 no-repeat;
+      background-size: $folder-icon-size;
+      cursor: pointer;
+      display: block;
+      padding-left: $biggest-icon-size + 8px;
+    }
+    input:checked + .file-tree__child-list {
+      background: $backround-color url(/img/file-tree/default_folder_opened.svg) 0 -3px no-repeat;
+      background-size: $folder-icon-size;
+      margin: -1.2em 0 0 0;
+      /* 20px */
+      padding-top: 1.4em;
+      height: auto;
+      > li {
+        display: block;
+        margin: 0 0 0.125em;
+        /* 2px */
+        &:last-child {
+          margin: 0 0 0.063em;
+          /* 1px */
+        }
+      }
+    }
+  }
+}

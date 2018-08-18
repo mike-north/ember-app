@@ -1,0 +1,14 @@
+<div class="sidebar">
+  {{#if hasBlock}}
+    {{yield (hash
+      ui=(hash
+        fileTree=(component 'project-editor/file-tree' project=@project)
+      )
+    )}}
+  {{else}}
+  <details open>
+  <summary>Files</summary>
+    {{project-editor/file-tree project=@project}}
+  </details>
+  {{/if}}
+</div>

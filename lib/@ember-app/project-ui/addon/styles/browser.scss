@@ -1,0 +1,88 @@
+.project-editor .browser {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+
+  .browser-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    .nav {
+      display: flex;
+      align-items: center;
+      background: #f2f2f2;
+      border-top: 1px solid #bbb;
+      border-bottom: 1px solid #ddd;
+      padding-left: 4px;
+      padding-right: 4px;
+      height: 38px;
+    }
+    .nav a {
+      border-radius: 2px;
+      margin: 8px 2px 0 2px;
+      padding: 6px 4px;
+      height: 24px;
+    }
+    .nav a:hover {
+      background: #dfdfdf;
+    }
+    .nav a:focus {
+      background: #aaa;
+    }
+    .nav svg {
+      width: 16px;
+      height: 16px;
+    }
+    .nav path {
+      fill: #6d6d6d;
+    }
+    .nav form {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      background: #fff;
+      height: 28px;
+      border-radius: 4px;
+      margin-left: 4px;
+      margin-right: 2px;
+      border: 1px solid #ccc;
+    }
+    .nav form.active {
+      border: 1px solid #399df7;
+      height: 26px;
+    }
+    .nav form svg {
+      margin-right: 4px;
+    }
+    .nav form input {
+      display: block;
+      border: none;
+      width: 100%;
+      padding-left: 20px;
+      font-size: 13.6px;
+    }
+    .nav form input:focus {
+      outline: none;
+    }
+    .nav form input:-webkit-autofill {
+      background-color: #fff;
+    }
+    .frame {
+      flex-grow: 1;
+      display: flex;
+      background: #aaa;
+    }
+
+    .frame iframe {
+      border: 0;
+      width: 100%;
+      min-height: 100%; /* This fix Edge */
+    }
+
+    .frame-hidden {
+      display: none;
+    }
+
+  }
+}
