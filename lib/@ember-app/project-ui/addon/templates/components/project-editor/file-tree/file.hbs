@@ -1,5 +1,5 @@
 <li class='file-tree__file'>
-  <a href="/{{@model.name}}">
+  <a href="/{{@model.name}}" onClick={{action @acts.onFileChosen @model}}>
     <span class="name">{{@model.name}}</span>
   </a>
 </li>

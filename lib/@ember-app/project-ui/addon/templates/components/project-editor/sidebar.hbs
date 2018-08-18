@@ -2,13 +2,21 @@
   {{#if hasBlock}}
     {{yield (hash
       ui=(hash
-        fileTree=(component 'project-editor/file-tree' project=@project)
+        fileTree=(component 'project-editor/file-tree' project=@project acts=@acts)
       )
     )}}
   {{else}}
   <details open>
-  <summary>Files</summary>
-    {{project-editor/file-tree project=@project}}
+    <summary>Files</summary>
+    {{project-editor/file-tree project=@project acts=@acts}}
   </details>
   {{/if}}
+  <details>
+    <summary>Tests</summary>
+    tests go here
+  </details>
+  <details>
+    <summary>Settings</summary>
+    settings go here
+  </details>
 </div>

@@ -1,0 +1,27 @@
+.code-editor-breadcrumb {
+  background: $dark-grey;
+  padding-top: 0.2rem;
+  line-height: 1.6rem;
+  &__path {
+    padding-left: 1rem;
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 100;
+    color: $lighter-grey;
+    list-style: none;
+  }
+  &__path-element {
+    display: inline-block;
+    &:after {
+      display: inline-block;
+      height: 1rem;
+      content: '/';
+    }
+    &:first-child:after {
+      display: none;
+    }
+    &:last-child:after {
+      display: none;
+    }
+  }
+}

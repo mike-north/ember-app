@@ -5,7 +5,22 @@ interface EditorConfig {
   language: 'typescript' | 'javascript'
 }
 
-export function setupEditor(cfg: EditorConfig) {
+export function updateEditor({value, language}: {
+  value: string;
+  language: 'typescript' | 'javascript'
+}) {
+  require(['vs/editor/editor.main'], function () {
+    if (typeof monaco !== "undefined") {
+      window.editor.setValue(value);
+      monaco.editor.setModelLanguage(window.editor.getModel(), language);
+    }
+  });
+}
+export function setupEditor(cfg: {
+  theme: string;
+  value: string;
+  language: 'typescript' | 'javascript'
+}) {
   require(['vs/editor/editor.main'], function () {
     if (typeof monaco !== "undefined") {
       const wrapper = window.document.getElementById('monaco-editor-wrapper');

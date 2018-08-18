@@ -4,6 +4,7 @@
 @import './header';
 @import './footer';
 @import './browser';
+@import './file-editor';
 
 
 .project-editor {
@@ -30,12 +31,14 @@
     .sidebar {
       flex-grow: 0;
       flex-shrink: 0;
-      width: 130px;
+      width: 150px;
     }
     .editors {
+      width: calc(50% - 75px);
       flex-grow: 0.6;
     }
     .browser {
+      width: calc(50% - 75px);
       flex-grow: 0.6;
     }
   }

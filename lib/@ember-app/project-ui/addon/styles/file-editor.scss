@@ -1,0 +1,8 @@
+@import './file-editor/breadcrumb';
+
+.file-editor {
+  border-top: 1px solid $darkest-grey;
+  .hidden {
+    display: none;
+  }
+}

@@ -1,9 +1,10 @@
 import Penpal from 'penpal';
-import { setupEditor } from "./editor-loader";
+import { setupEditor, updateEditor } from "./editor-loader";
 
 Penpal.connectToParent({
   methods: {
-    setupEditor
+    setupEditor,
+    updateEditor,
   }
 });
 

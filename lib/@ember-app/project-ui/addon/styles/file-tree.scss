@@ -23,7 +23,9 @@
   line-height: $item-height;
   font-weight: 100;
   overflow: scroll;
-  list-style: none;
+  ol, ul {
+    list-style: none;
+  }
   position: relative;
   & > .file-tree__child-list {
     padding-left: 0;

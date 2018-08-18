@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { classNames, layout } from '@ember-decorators/component';
 import Penpal from 'penpal';
+import { next, debounce } from '@ember/runloop';
 
 @classNames('monaco-editor')
 @layout(hbs`<div class="frame-container"></div>`)
@@ -13,6 +14,7 @@ export default class CodeEditor extends Component {
   _subscription?: (evt: MessageEvent) => any;
   theme: 'vs-dark' | 'vs-light' = 'vs-dark'; // TODO: proper default value
   onChange?: (...args: any[]) => any;
+  updateOnChange: boolean = false;
   constructor() {
     super(...arguments);
     this._subscription = (event: MessageEvent) => {
@@ -32,7 +34,6 @@ export default class CodeEditor extends Component {
 
   didInsertElement() {
     super.didInsertElement();
-
     const container = this.element.querySelector<HTMLDivElement>(
       '.frame-container'
     );
@@ -50,6 +51,21 @@ export default class CodeEditor extends Component {
       });
     });
   }
+
+  didReceiveAttrs() {
+    debounce(this, 'updateFrame', 0.5);
+  }
+
+  updateFrame() {
+    this._conn.promise.then(frameApi => {
+      const { code, language } = this;
+      frameApi.updateEditor({
+        language,
+        value: code
+      });
+    });
+  }
+
   willDestroyElement() {
     super.willDestroyElement();
     if (this._subscription) {

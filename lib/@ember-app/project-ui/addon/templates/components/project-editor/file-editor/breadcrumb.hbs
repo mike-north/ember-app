@@ -1,0 +1,9 @@
+<div class="code-editor-breadcrumb">
+  <ol class="code-editor-breadcrumb__path">
+    {{#each @file.fullPath as |pathElem|}}
+      <li class="code-editor-breadcrumb__path-element">
+        {{pathElem}}
+      </li>
+    {{/each}}
+  </ol>
+</div>

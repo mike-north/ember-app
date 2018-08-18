@@ -17,6 +17,7 @@ export default class ProjectFolder {
       _parent.addChildFolder(this);
     }
   }
+  get parent(): ProjectFolder|null { return this._parent; }
   get name(): string { return this._name; }
   get isRoot(): boolean {
     return this._parent === null;
@@ -94,14 +95,17 @@ export default class ProjectFolder {
     // TODO: throw if file already exists
     if (this._files === void 0) this._files = [];
     this._files.push(file);
+    file.moveToFolder(this);
   }
 
-  public createChildFolder(namePath: string[]) {
-
+  public removeFile(file: ProjectFile) {
+    if (this._files === void 0) return;
+    const idx = this._files.indexOf(file);
+    this._files.splice(idx, 1);
   }
 
   public toJSON(): FolderJSON {
-    const { _name, _childFolders } = this;
+    const { _name: name, _childFolders } = this;
     const files: FileJSON[] = (this._files || []).map(f => f.toJSON());
     if (_childFolders === void 0) {
       // leaf

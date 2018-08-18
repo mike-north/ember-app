@@ -8,7 +8,11 @@ export function sampleProject(): Project {
   proj.createFile('app/app.ts', 'const x: string = "foo";');
   proj.createFile('app/components/x-foo.ts', 'const x: string = "foo";');
   proj.createFile('addon/components/x-foo.ts', 'const x: string = "foo";');
-  proj.createFile('addon/.eslintrc.js', 'module.exports = {};');
+  proj.createFile('addon/.eslintrc.js', `module.exports = {
+  a: 'foo',
+  b: 44,
+  c: [2, '17']
+};`);
   console.log(proj.toJSON());
   return proj;
 }

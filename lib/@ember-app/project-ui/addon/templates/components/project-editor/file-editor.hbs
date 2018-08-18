@@ -1,0 +1,6 @@
+<div class={{if file.empty 'hidden' ''}}>
+  {{project-editor/file-editor/breadcrumb file=file}}
+  {{code-editor
+    code=file.contents
+    language=(filetype-to-language file.fileType)}}
+</div>
