@@ -23,7 +23,8 @@
   line-height: $item-height;
   font-weight: 100;
   overflow: scroll;
-  ol, ul {
+  ol,
+  ul {
     list-style: none;
   }
   position: relative;
@@ -61,7 +62,8 @@
         }
       }
     }
-    a, label {
+    a,
+    label {
       color: $file-text-color;
       padding-left: $biggest-icon-size + $icon-right-pad;
       text-decoration: none;
@@ -72,7 +74,7 @@
         position: relative;
       }
       &:before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         width: 100%;
@@ -119,7 +121,8 @@
       padding-left: $biggest-icon-size + $icon-right-pad;
     }
     input:checked + .file-tree__child-list {
-      background: $backround-color url(/img/file-tree/default_folder_opened.svg) 0 -4px no-repeat;
+      background: $backround-color url(/img/file-tree/default_folder_opened.svg)
+        0 -4px no-repeat;
       background-size: $folder-icon-size;
       margin: -1.2em 0 0 0;
       /* 20px */

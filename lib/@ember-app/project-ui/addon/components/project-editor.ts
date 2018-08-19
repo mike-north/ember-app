@@ -1,10 +1,10 @@
-import Component from '@ember/component';
-import { action } from '@ember-decorators/object';
-import hbs from 'htmlbars-inline-precompile';
-import { layout, classNames } from '@ember-decorators/component';
+import { schema, store } from '@ember-app/data';
 import ProjectFile from '@ember-app/project/file';
+import { classNames, layout } from '@ember-decorators/component';
+import { action } from '@ember-decorators/object';
+import Component from '@ember/component';
 import Logger, { Level } from 'bite-log';
-import { store, schema } from '@ember-app/data';
+import hbs from 'htmlbars-inline-precompile';
 
 const logger = new Logger(Level.debug);
 logger.pushPrefix('ProjectEditor');
@@ -43,34 +43,32 @@ logger.pushPrefix('ProjectEditor');
 {{/if}}
 `)
 export default class ProjectEditor extends Component {
-  file: ProjectFile | undefined;
+  public file: ProjectFile | undefined;
   @action
-  onFileChosen(file: ProjectFile, evt: MouseEvent) {
+  public onFileChosen(file: ProjectFile, evt: MouseEvent) {
     evt.preventDefault();
-    logger.bgBlue.white.txt(' opened ')
-      .debug(' ' + file.fullPath.join('/'));
+    logger.bgBlue.white.txt(' opened ').debug(' ' + file.fullPath.join('/'));
     this.set('file', file);
   }
   @action
-  onFileChanged(file: ProjectFile, contents: string) {
+  public onFileChanged(file: ProjectFile, contents: string) {
     file.contents = contents;
-    logger.bgYellowGreen.txt(' updated ')
+    logger.bgYellowGreen
+      .txt(' updated ')
       .debug(' ' + file.fullPath.join('/'), file.contents);
-      const rec = {
-        type: 'planet',
-        // id: '4',
-        attributes: {
-          name: 'earth'
-        }
-      } as any;
+    const rec = {
+      attributes: {
+        name: 'earth',
+      },
+      type: 'planet',
+      // id: '4',
+    } as any;
     schema.initializeRecord(rec);
 
-    console.log(`transforms: ${store.transformLog.length}`);
-    store.update(t => t.addRecord(rec))
-      .then(() => {
-        // Verify that the transform log has grown
-        console.log(`transforms: ${store.transformLog.length}`);
-      });
-
+    logger.debug(`transforms: ${store.transformLog.length}`);
+    store.update(t => t.addRecord(rec)).then(() => {
+      // Verify that the transform log has grown
+      logger.debug(`transforms: ${store.transformLog.length}`);
+    });
   }
 }

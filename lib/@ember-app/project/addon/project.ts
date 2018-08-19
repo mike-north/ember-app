@@ -1,18 +1,12 @@
-import ProjectFolder from "./folder";
-import ProjectFile from "./file";
-import { ProjectJSON } from "./serializer/project";
+import ProjectFile from './file';
+import ProjectFolder from './folder';
+import { ProjectJSON } from './serializer/project';
 
 export default class Project {
   constructor(
     public name: string = 'default project',
-    protected rootFolder: ProjectFolder = new ProjectFolder('')){}
-
-  protected findFolder(nameOrPath: string[]): ProjectFolder | null {
-    return this.rootFolder.findChildFolder(nameOrPath);
-  }
-  protected getOrCreateFolder(nameOrPath: string[]): ProjectFolder {
-    return this.rootFolder.getOrCreateChildFolder(nameOrPath);
-  }
+    protected rootFolder: ProjectFolder = new ProjectFolder(''),
+  ) {}
 
   public createFile(name: string, contents: string) {
     const path = name.split('/');
@@ -33,7 +27,14 @@ export default class Project {
   public toJSON(): ProjectJSON {
     return {
       name: this.name,
-      rootFolder: this.rootFolder.toJSON()
-    }
+      rootFolder: this.rootFolder.toJSON(),
+    };
+  }
+
+  protected findFolder(nameOrPath: string[]): ProjectFolder | null {
+    return this.rootFolder.findChildFolder(nameOrPath);
+  }
+  protected getOrCreateFolder(nameOrPath: string[]): ProjectFolder {
+    return this.rootFolder.getOrCreateChildFolder(nameOrPath);
   }
 }

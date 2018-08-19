@@ -1,59 +1,63 @@
-import Store from '@orbit/store';
-import schema from './schema';
+import Coordinator, { SyncStrategy } from '@orbit/coordinator';
 import IndexedDBSource from '@orbit/indexeddb';
-import JSONAPISource from '@orbit/jsonapi';
-import Coordinator, { RequestStrategy, SyncStrategy } from '@orbit/coordinator';
-import LocalStorageBucket from '@orbit/local-storage-bucket';
 import IndexedDBBucket, { supportsIndexedDB } from '@orbit/indexeddb-bucket';
+import JSONAPISource from '@orbit/jsonapi';
+import LocalStorageBucket from '@orbit/local-storage-bucket';
+import Store from '@orbit/store';
+import Logger, { Level } from 'bite-log';
+import schema from './schema';
+
+const l = new Logger(Level.debug);
 
 const bucket = supportsIndexedDB()
   ? new IndexedDBBucket({ namespace: '@ember-app' })
   : new LocalStorageBucket({ namespace: '@ember-app' });
 
-const remoteStore = new JSONAPISource({
-  schema,
+const remote = new JSONAPISource({
+  host: 'http://api.example.com',
   name: 'remote',
-  host: 'http://api.example.com'
-});
-
-const memoryStore = new Store({ schema, bucket });
-memoryStore.on('transform', (t: any) => {
-  console.log('transform', t);
-});
-
-const idbStore = new IndexedDBSource({
   schema,
+});
+
+const store = new Store({ schema, bucket, name: 'store' });
+store.on('transform', (t: any) => {
+  l.log('transform', t);
+});
+
+const backup = new IndexedDBSource({
   bucket,
   name: 'backup',
-  namespace: 'solarsystem'
+  namespace: 'solarsystem',
+  schema,
 });
 
 const coordinator = new Coordinator({
-  sources: [memoryStore, idbStore, remoteStore]
+  sources: [store, backup, remote],
 });
 
-// const backupStoreSync = new SyncStrategy({
-//   source: 'memoryStore',
-//   target: 'idbStore',
-//   blocking: true
-// });
+// Backup everything in idb for offline use
+const backupStoreSync = new SyncStrategy({
+  blocking: true,
+  source: 'store',
+  target: 'backup',
+});
 
-// coordinator.addStrategy(backupStoreSync);
+coordinator.addStrategy(backupStoreSync);
 
 // // Query the remote server whenever the store is queried
 // coordinator.addStrategy(
 //   new RequestStrategy({
-//     source: 'idbStore',
+//     source: 'store',
 //     on: 'beforeQuery',
 //     target: 'remote',
 //     action: 'pull',
 //     blocking: false
 //   })
-);
+// );
 // // Update the remote server whenever the store is updated
 // coordinator.addStrategy(
 //   new RequestStrategy({
-//     source: 'idbStore',
+//     source: 'store',
 //     on: 'beforeUpdate',
 //     target: 'remote',
 //     action: 'push',
@@ -64,18 +68,11 @@ const coordinator = new Coordinator({
 // coordinator.addStrategy(
 //   new SyncStrategy({
 //     source: 'remote',
-//     target: 'idbStore',
-//     blocking: false
-//   })
-// );
-// coordinator.addStrategy(
-//   new SyncStrategy({
-//     source: 'idbStore',
-//     target: 'memoryStore',
+//     target: 'store',
 //     blocking: false
 //   })
 // );
 
 coordinator.activate(); // returns a promise that resolves when all strategies have been activated
 
-export default memoryStore;
+export default store;

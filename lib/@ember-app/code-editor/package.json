@@ -10,8 +10,6 @@
     "ember-cli-htmlbars": "*",
     "ember-cli-babel": "*",
     "ember-cli-typescript": "*",
-    "broccoli-typescript-compiler": "*",
-    "ember-decorators": "*",
-    "monaco-editor": "*"
+    "broccoli-typescript-compiler": "*"
   }
 }

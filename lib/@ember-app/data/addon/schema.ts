@@ -2,24 +2,32 @@ import { Schema } from '@orbit/data';
 
 const schemaDefinition = {
   models: {
-    planet: {
-      attributes: {
-        name: { type: 'string' },
-        classification: { type: 'string' }
-      },
-      relationships: {
-        moons: { type: 'hasMany' as 'hasMany', model: 'moon', inverse: 'planet' }
-      }
-    },
     moon: {
       attributes: {
-        name: { type: 'string' }
+        name: { type: 'string' },
       },
       relationships: {
-        planet: { type: 'hasOne' as 'hasOne', model: 'planet', inverse: 'moons' }
-      }
-    }
-  }
+        planet: {
+          inverse: 'moons',
+          model: 'planet',
+          type: 'hasOne' as 'hasOne',
+        },
+      },
+    },
+    planet: {
+      attributes: {
+        classification: { type: 'string' },
+        name: { type: 'string' },
+      },
+      relationships: {
+        moons: {
+          inverse: 'planet',
+          model: 'moon',
+          type: 'hasMany' as 'hasMany',
+        },
+      },
+    },
+  },
 };
 
 const schema = new Schema(schemaDefinition);

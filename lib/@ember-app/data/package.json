@@ -4,7 +4,7 @@
     "ember-addon"
   ],
   "dependencies": {
-    "@orbit/indexeddb": "*"
+    "ember-cli-babel": "*"
   },
   "devDependencies": {
     "ember-cli-typescript": "*"

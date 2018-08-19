@@ -10,5 +10,15 @@
     "**/node_modules/**": true,
     "**/tmp/**":true,
     "**/dist/**": true
+  },
+  "tslint.autoFixOnSave": true,
+  "[typescript]": {
+    "editor.formatOnSave": true,
+  },
+  "[scss]": {
+    "editor.formatOnSave": true,
+  },
+  "[javascript]": {
+    "editor.formatOnSave": true,
   }
 }

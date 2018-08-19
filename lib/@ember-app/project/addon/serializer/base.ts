@@ -1,6 +1,4 @@
-import { JSONObject } from 'ts-std';
-
-export default abstract class BaseSerializer<T, J > {
-  abstract fromJSON(val: J): T;
-  abstract toJSON(val: T): J;
+export default abstract class BaseSerializer<T, J> {
+  public abstract fromJSON(val: J): T;
+  public abstract toJSON(val: T): J;
 }

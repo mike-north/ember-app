@@ -2,10 +2,11 @@
   "compilerOptions": {
     "types": [
       "monaco-editor"
-    ]
+    ],
+    "rootDir": "."
   },
   "extends": "../../../../tsconfig.json",
   "include": [
-    "**/*.ts"
+    "./**/*.ts"
   ]
 }

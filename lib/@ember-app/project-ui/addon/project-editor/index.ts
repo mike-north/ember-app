@@ -1,8 +1,8 @@
-import ProjectEditorState from "./state";
-import { Subject, Observable } from 'micro-observable';
+import { Observable, Subject } from 'micro-observable';
+import ProjectEditorState from './state';
 
 export default class ProjectEditor {
-  state: ProjectEditorState = new ProjectEditorState();
+  public state: ProjectEditorState = new ProjectEditorState();
   private stateSubj = new Subject<ProjectEditorState>();
   get stateObservable(): Observable<ProjectEditorState> {
     return this.stateSubj;
