@@ -2,5 +2,6 @@
   {{project-editor/file-editor/breadcrumb file=file}}
   {{code-editor
     code=file.contents
+    onChange=(action (mut file.contents) )
     language=(filetype-to-language file.fileType)}}
 </div>

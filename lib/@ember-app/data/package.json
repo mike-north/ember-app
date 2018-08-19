@@ -1,0 +1,9 @@
+{
+  "name": "@ember-app/data",
+  "keywords": [
+    "ember-addon"
+  ],
+  "devDependencies": {
+    "ember-cli-typescript": "*"
+  }
+}

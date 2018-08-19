@@ -2,34 +2,31 @@ import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { classNames, layout } from '@ember-decorators/component';
 import Penpal from 'penpal';
-import { next, debounce } from '@ember/runloop';
+import { debounce } from '@ember/runloop';
 
 @classNames('monaco-editor')
 @layout(hbs`<div class="frame-container"></div>`)
 export default class CodeEditor extends Component {
-  frame?: Window;
   code?: string;
+  _lastCode?: string = this.code;
   language?: string;
   _conn!: Penpal.IChildConnectionObject;
-  _subscription?: (evt: MessageEvent) => any;
   theme: 'vs-dark' | 'vs-light' = 'vs-dark'; // TODO: proper default value
-  onChange?: (...args: any[]) => any;
-  updateOnChange: boolean = false;
-  constructor() {
-    super(...arguments);
-    this._subscription = (event: MessageEvent) => {
-      // Ignore messages not coming from this iframe
-      if (event.source === this.frame && event.data && event.data.updatedCode) {
-        debugger;
-        if (this.onChange) this.onChange(event.data.updatedCode);
-      }
-    };
-    window.addEventListener('message', this._subscription);
-  }
+  onChange?: (v: string) => any;
 
   buildEditorOptions(): object {
     const { code, language, theme } = this;
     return { value: code, language, theme };
+  }
+
+  onEditorTextChanged({ value }: { value: string, event: any }) {
+    if (value === this.code) { // if our editor is already up to date
+      return; // no change
+    }
+    this.code = this._lastCode = value;
+    if (this.onChange) {
+      this.onChange(value);
+    }
   }
 
   didInsertElement() {
@@ -40,7 +37,10 @@ export default class CodeEditor extends Component {
     if (!container) throw new Error('No frame container found');
     this._conn = Penpal.connectToChild({
       url: '/ember-app/code-editor/frame.html',
-      appendTo: container
+      appendTo: container,
+      methods: {
+        onValueChanged: this.onEditorTextChanged.bind(this)
+      }
     });
     this._conn.promise.then(frameApi => {
       const { code, theme, language } = this;
@@ -52,8 +52,11 @@ export default class CodeEditor extends Component {
     });
   }
 
-  didReceiveAttrs() {
-    debounce(this, 'updateFrame', 0.5);
+  didUpdateAttrs() {
+    if (this.code !== this._lastCode) {
+      this.updateFrame();
+    }
+    this._lastCode = this.code;
   }
 
   updateFrame() {
@@ -68,8 +71,6 @@ export default class CodeEditor extends Component {
 
   willDestroyElement() {
     super.willDestroyElement();
-    if (this._subscription) {
-      window.removeEventListener('message', this._subscription);
-    }
+    this._conn.destroy();
   }
 }

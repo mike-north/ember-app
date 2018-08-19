@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import tmpl from '../../templates/components/project-editor/file-editor';
+import tmpl from '@ember-app/project-ui/templates/components/project-editor/file-editor';
 import { classNames } from '@ember-decorators/component';
 import ProjectFile from '@ember-app/project/file';
 

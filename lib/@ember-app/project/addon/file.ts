@@ -56,6 +56,9 @@ export default class ProjectFile {
   public get contents(): string {
     return this._contents;
   }
+  public set contents(newVal: string) {
+    this._contents = newVal;
+  }
   moveToFolder(folder: ProjectFolder) {
     if (this.folder) this.folder.removeFile(this);
     this.folder = folder;

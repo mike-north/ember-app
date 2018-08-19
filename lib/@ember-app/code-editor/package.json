@@ -3,6 +3,9 @@
   "keywords": [
     "ember-addon"
   ],
+  "devDependencies": {
+    "monaco-editor": "*"
+  },
   "dependencies": {
     "ember-cli-htmlbars": "*",
     "ember-cli-babel": "*",
