@@ -26,7 +26,6 @@
     "@orbit/jsonapi": "^0.15.19",
     "@orbit/local-storage-bucket": "^0.15.19",
     "@types/ember": "^2.8.32",
-    "@types/ember-data": "^2.14.18",
     "@types/ember-qunit": "^3.0.3",
     "@types/ember-test-helpers": "^0.7.1",
     "@types/ember-testing-helpers": "^0.0.3",

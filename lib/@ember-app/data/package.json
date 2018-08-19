@@ -3,6 +3,9 @@
   "keywords": [
     "ember-addon"
   ],
+  "dependencies": {
+    "@orbit/indexeddb": "*"
+  },
   "devDependencies": {
     "ember-cli-typescript": "*"
   }
