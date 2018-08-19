@@ -1,3 +1,5 @@
+import { store } from '@ember-app/data';
+import { FileRecord } from '@ember-app/data/schema';
 import ProjectFolder from './folder';
 import { FileJSON } from './serializer/file';
 
@@ -34,44 +36,50 @@ function detectFileType(fileName: string): FileType {
 }
 
 export default class ProjectFile {
+  private _fileType: FileType | null = null;
+  constructor(
+    protected record: Pick<FileRecord, 'attributes'>,
+    protected folder?: ProjectFolder,
+  ) {}
   public get fileType(): FileType {
     if (!this._fileType) {
-      this._fileType = detectFileType(this._name);
+      this._fileType = detectFileType(this.name);
     }
     return this._fileType;
   }
 
   public get fullPath(): string[] {
     const parts: string[] = [];
-    parts.push(this._name);
-    let folder: ProjectFolder | null = this.folder;
+    parts.push(this.name);
+    let folder: ProjectFolder | null = this.folder || null;
     while (folder) {
       parts.push(folder.name);
       folder = folder.parent;
     }
     return parts.reverse();
   }
+  public get path(): string[] {
+    return this.record.attributes.name.split('/');
+  }
   public get name(): string {
-    return this._name;
+    const { path } = this;
+    return path[path.length - 1];
   }
   public get contents(): string {
-    return this._contents;
+    return this.record.attributes.contents;
   }
   public set contents(newVal: string) {
-    this._contents = newVal;
+    this.record.attributes.contents = newVal;
   }
-  private _fileType: FileType | null = null;
-  constructor(
-    protected _name: string,
-    protected _contents: string,
-    public folder: ProjectFolder | null = null,
-  ) {}
   public toJSON(): FileJSON {
-    const { _name: name, _contents: contents } = this;
+    const { name, contents } = this;
     return {
       contents,
       name,
     };
+  }
+  public async save() {
+    await store.update(t => t.replaceRecord(this.record));
   }
   public moveToFolder(folder: ProjectFolder) {
     if (this.folder) {

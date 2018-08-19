@@ -1,3 +1,13 @@
 {{outlet}}
 
-<button onClick={{action 'newProject'}}>Create a new project</button>
+<button onClick={{route-action 'createProject'}}>Create a new project</button>
+
+<ul>
+  {{#each model as |project|}}
+  <li>
+    {{#link-to 'project' project.id}}
+      {{project.attributes.name}}
+    {{/link-to}}
+  </li>
+  {{/each}}
+</ul>

@@ -1,11 +1,11 @@
-import { suite, test } from 'qunit-decorators';
 import { EmberTest } from 'ember-qunit-decorators/test-support';
+import { suite, test } from 'qunit-decorators';
 
 @suite('Unit | Route | index')
 export class IndexRouteTest extends EmberTest {
-
-  @test 'it exists'(assert: Assert) {
-    let route = this.owner.lookup('route:index');
+  @test
+  public 'it exists'(assert: Assert) {
+    const route = this.owner.lookup('route:index');
     assert.ok(route);
   }
 }

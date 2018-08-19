@@ -57,6 +57,19 @@ export default class ProjectFolder {
     return null; // no match found
   }
 
+  public allFiles(): Array<Readonly<ProjectFile>> {
+    const { _childFolders } = this;
+    if (!_childFolders) {
+      return this.files;
+    }
+    return this.files.concat(
+      _childFolders.reduce(
+        (files, folder) => files.concat(folder.allFiles()),
+        [] as Array<Readonly<ProjectFile>>,
+      ),
+    );
+  }
+
   /**
    * Get a subfolder by name, creating on the fly if it does not exist
    * @param nameOrPath the name of the folder to search for

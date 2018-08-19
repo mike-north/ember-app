@@ -19,6 +19,7 @@
   "devDependencies": {
     "@ember-decorators/babel-transforms": "^2.0.0",
     "@ember/optional-features": "^0.6.4",
+    "@mike-north/types": "^1.0.6",
     "@orbit/core": "^0.15.19",
     "@orbit/data": "^0.15.19",
     "@orbit/indexeddb": "^0.15.19",

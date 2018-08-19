@@ -3,7 +3,12 @@ import ProjectFile from '@ember-app/project/file';
 import { classNames } from '@ember-decorators/component';
 import Component from '@ember/component';
 
-const EMPTY_FILE = new ProjectFile('no_name.json', '{}');
+const EMPTY_FILE = new ProjectFile({
+  attributes: {
+    contents: '',
+    name: 'no_name.txt',
+  },
+});
 (EMPTY_FILE as any).empty = true;
 
 @classNames('file-editor')

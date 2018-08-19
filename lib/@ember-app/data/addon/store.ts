@@ -10,29 +10,35 @@ import schema from './schema';
 const l = new Logger(Level.debug);
 
 const bucket = supportsIndexedDB()
-  ? new IndexedDBBucket({ namespace: '@ember-app' })
-  : new LocalStorageBucket({ namespace: '@ember-app' });
+  ? new IndexedDBBucket({ namespace: '@ember-app-bucket' })
+  : new LocalStorageBucket({ namespace: '@ember-app-bucket' });
 
-const remote = new JSONAPISource({
-  host: 'http://api.example.com',
-  name: 'remote',
-  schema,
-});
+// const remote = new JSONAPISource({
+//   host: 'http://api.example.com',
+//   name: 'remote',
+//   schema,
+// });
 
 const store = new Store({ schema, bucket, name: 'store' });
-store.on('transform', (t: any) => {
-  l.log('transform', t);
-});
 
 const backup = new IndexedDBSource({
   bucket,
   name: 'backup',
-  namespace: 'solarsystem',
+  namespace: '@ember-app-storage',
   schema,
 });
 
+export async function restoreSavedState(): Promise<void> {
+  l.log('Restoring saved state');
+  await backup
+    .pull(q => q.findRecords())
+    .then(transform => store.sync(transform))
+    .then(() => coordinator.activate());
+  l.log(store.cache);
+}
+
 const coordinator = new Coordinator({
-  sources: [store, backup, remote],
+  sources: [store, backup],
 });
 
 // Backup everything in idb for offline use
@@ -73,6 +79,6 @@ coordinator.addStrategy(backupStoreSync);
 //   })
 // );
 
-coordinator.activate(); // returns a promise that resolves when all strategies have been activated
+// coordinator.activate(); // returns a promise that resolves when all strategies have been activated
 
 export default store;

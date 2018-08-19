@@ -53,22 +53,6 @@ export default class ProjectEditor extends Component {
   @action
   public onFileChanged(file: ProjectFile, contents: string) {
     file.contents = contents;
-    logger.bgYellowGreen
-      .txt(' updated ')
-      .debug(' ' + file.fullPath.join('/'), file.contents);
-    const rec = {
-      attributes: {
-        name: 'earth',
-      },
-      type: 'planet',
-      // id: '4',
-    } as any;
-    schema.initializeRecord(rec);
-
-    logger.debug(`transforms: ${store.transformLog.length}`);
-    store.update(t => t.addRecord(rec)).then(() => {
-      // Verify that the transform log has grown
-      logger.debug(`transforms: ${store.transformLog.length}`);
-    });
+    file.save();
   }
 }
