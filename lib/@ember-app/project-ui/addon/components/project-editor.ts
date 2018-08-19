@@ -1,4 +1,4 @@
-import { schema, store } from '@ember-app/data';
+import Project from '@ember-app/project';
 import ProjectFile from '@ember-app/project/file';
 import { classNames, layout } from '@ember-decorators/component';
 import { action } from '@ember-decorators/object';
@@ -43,12 +43,36 @@ logger.pushPrefix('ProjectEditor');
 {{/if}}
 `)
 export default class ProjectEditor extends Component {
-  public file: ProjectFile | undefined;
+  public file: Readonly<ProjectFile> | undefined;
+  public onOpenEditor?: (s: string) => void;
+  public _fileNamesOpen?: string;
+  public fileNamesOpen?: string[];
+  public project!: Project;
+  public didReceiveAttrs() {
+    const { _fileNamesOpen, fileNamesOpen } = this;
+    if (
+      !fileNamesOpen ||
+      fileNamesOpen.length === 0 ||
+      (fileNamesOpen.length === 1 && fileNamesOpen[0] === '')
+    ) {
+      return;
+    }
+    const a = _fileNamesOpen;
+    const b = (fileNamesOpen || []).sort().join();
+    if (a !== b) {
+      const f = this.project.findFile(fileNamesOpen[0]);
+      this.set('file', f || undefined);
+    }
+    this._fileNamesOpen = b;
+  }
+
   @action
   public onFileChosen(file: ProjectFile, evt: MouseEvent) {
     evt.preventDefault();
-    logger.bgBlue.white.txt(' opened ').debug(' ' + file.fullPath.join('/'));
-    this.set('file', file);
+    if (this.onOpenEditor) {
+      this.onOpenEditor(file.path.join('/'));
+    }
+    // this.set('file', file);
   }
   @action
   public onFileChanged(file: ProjectFile, contents: string) {

@@ -45,9 +45,31 @@ export default class Project {
     };
   }
 
+  public findFile(name: string): Readonly<ProjectFile> | null {
+    const folderPath: string[] = name.split('/');
+    const fileName = folderPath.pop();
+    if (!fileName) {
+      throw new Error(`Invalid file name: "${name}"`);
+    }
+    const folder =
+      folderPath.length === 0 ? this.rootFolder : this.findFolder(folderPath);
+    if (!folder) {
+      throw new Error(
+        `Could not find containing folder: "${folderPath.join(
+          '/',
+        )}" for file "${name}"`,
+      );
+    }
+    const file: Readonly<ProjectFile> | undefined = folder.files.filter(
+      f => f.name === fileName,
+    )[0];
+    return file || null;
+  }
+
   protected findFolder(nameOrPath: string[]): ProjectFolder | null {
     return this.rootFolder.findChildFolder(nameOrPath);
   }
+
   protected getOrCreateFolder(nameOrPath: string[]): ProjectFolder {
     return this.rootFolder.getOrCreateChildFolder(nameOrPath);
   }

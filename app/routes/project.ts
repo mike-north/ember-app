@@ -16,7 +16,13 @@ export default class ProjectRoute extends Route {
       throw new Error(`Project ${id} not found`);
     }
     const pr = new Project(projRecord, fileRecords);
-    console.log(pr);
     return pr;
   }
 }
+
+ProjectRoute.prototype.queryParams = {
+  editors: {
+    as: 'files',
+    replace: true,
+  },
+};
