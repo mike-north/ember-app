@@ -3,9 +3,11 @@
   {{#each @leftIndicators.list as |indicator|}}
     <span class="indicator">
       {{#each indicator.elements as |elem|}}
+        {{#unless elem.hide}}
         <span class="indicator__element" style='{{indicator-element-style elem}}'>
           {{elem.text}}
         </span>
+        {{/unless}}
       {{/each}}
     </span>
   {{/each}}
@@ -14,9 +16,11 @@
   {{#each @rightIndicators.list as |indicator|}}
     <span class="indicator">
       {{#each indicator.elements as |elem|}}
+        {{#unless elem.hide}}
         <span class="indicator__element" style='{{indicator-element-style elem}}'>
           {{elem.text}}
         </span>
+        {{/unless}}
       {{/each}}
     </span>
   {{/each}}

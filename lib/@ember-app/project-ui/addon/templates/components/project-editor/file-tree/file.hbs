@@ -1,5 +1,8 @@
 <li class='file-tree__file {{if @isActive 'active' ''}}'>
   <a file-name="{{@model.fileName}}" onClick={{action @acts.onFileChosen @model}}>
     <span class="name">{{@model.displayName}}</span>
+    {{#if @model.isDirty}}
+      <i class="dot right yellow"></i>
+    {{/if}}
   </a>
 </li>

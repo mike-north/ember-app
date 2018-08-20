@@ -25,7 +25,7 @@ export default class Project
   }
   // tslint:disable-next-line:no-empty
   public readonly pathString = '';
-  protected rootFolder: ProjectFolder = new ProjectFolder('');
+  public rootFolder: ProjectFolder = new ProjectFolder('');
 
   constructor(record: ProjectRecord, files?: FileRecord[]) {
     super(record);

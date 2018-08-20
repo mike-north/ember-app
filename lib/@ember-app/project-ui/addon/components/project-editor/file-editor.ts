@@ -4,6 +4,8 @@ import { classNames } from '@ember-decorators/component';
 import Component from '@ember/component';
 
 const EMPTY_FILE = new ProjectFile({
+  type: 'file',
+  id: '',
   attributes: {
     contents: '',
     name: 'no_name.txt',

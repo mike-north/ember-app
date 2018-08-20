@@ -1,12 +1,15 @@
 import { CodeEditorKeyCommand } from '@ember-app/code-editor/components/code-editor';
 import Project from '@ember-app/project';
-import StatusIndicatorManager from '@ember-app/project-ui/project-editor/indicator-manager';
+import StatusIndicatorManager, {
+  StatusIndicatorElement,
+} from '@ember-app/project-ui/project-editor/indicator-manager';
 import ProjectFile from '@ember-app/project/file';
 import ProjectFolder from '@ember-app/project/folder';
 import { classNames } from '@ember-decorators/component';
-import { action } from '@ember-decorators/object';
+import { action, computed } from '@ember-decorators/object';
 import { service } from '@ember-decorators/service';
 import Component from '@ember/component';
+import { set } from '@ember/object';
 import Evented from '@ember/object/evented';
 import Logger, { Level } from 'bite-log';
 import { keyDown } from 'ember-keyboard';
@@ -33,6 +36,9 @@ export default class ProjectEditor extends Component.extend(Evented) {
   public keyboardPriority = 0;
   public keyboardActivated!: boolean;
   public selectedNode!: ProjectFile | ProjectFolder | null;
+  public indicators: {
+    numDirtyFiles?: StatusIndicatorElement;
+  } = {};
   constructor() {
     super(...arguments);
     if (!this.selectedNode) {
@@ -64,8 +70,17 @@ export default class ProjectEditor extends Component.extend(Evented) {
       }
       evt.preventDefault();
     });
+    this.setupFooterIndicators();
   }
-
+  public setupFooterIndicators() {
+    this.indicators.numDirtyFiles = {
+      bgColor: 'yellow',
+      color: 'black',
+      hide: this.numDirtyFiles === 0,
+      text: `${this.numDirtyFiles} UNSAVED`,
+    };
+    this.leftFooterIndicators.add(this.indicators.numDirtyFiles);
+  }
   public didReceiveAttrs() {
     this.performConditionalUpdates();
   }
@@ -96,11 +111,22 @@ export default class ProjectEditor extends Component.extend(Evented) {
     }
     this._fileNamesOpen = b;
   }
-  public cmdSave(file: Readonly<ProjectFile>) {
+
+  public async cmdSave(file: Readonly<ProjectFile>) {
     logger.bgGreen.white.txt(' save ').log(' ' + file.pathString);
+    await file.save();
+    this.updateChangedFileIndicator();
   }
-  public cmdSaveAll() {
+
+  public async cmdSaveAll() {
     logger.bgGreen.white.log(' save all ');
+    await Promise.all(this.project.allFiles().map(f => f.save()));
+    this.updateChangedFileIndicator();
+  }
+
+  @computed('project.rootFolder.files.@each.isDirty')
+  public get numDirtyFiles(): number {
+    return this.project.rootFolder.files.filter(f => f.isDirty).length;
   }
 
   @action
@@ -113,6 +139,7 @@ export default class ProjectEditor extends Component.extend(Evented) {
       this.onOpenEditor(file.path.join('/'));
     }
   }
+
   @action
   public onFolderChosen(folder: ProjectFolder, evt: MouseEvent) {
     if (folder !== this.selectedNode) {
@@ -120,11 +147,13 @@ export default class ProjectEditor extends Component.extend(Evented) {
       this.set('selectedNode', folder);
     }
   }
+
   @action
   public onFileChanged(file: ProjectFile, contents: string) {
     file.contents = contents;
-    file.save();
+    this.updateChangedFileIndicator();
   }
+
   @action
   public onEditorKeyCommand(file: ProjectFile, evt: CodeEditorKeyCommand) {
     if (evt.cmd && evt.keys.length === 1 && evt.keys[0] === 's') {
@@ -133,6 +162,14 @@ export default class ProjectEditor extends Component.extend(Evented) {
       } else {
         this.cmdSave(file);
       }
+    }
+  }
+
+  public updateChangedFileIndicator() {
+    if (this.indicators.numDirtyFiles) {
+      const { numDirtyFiles } = this;
+      set(this.indicators.numDirtyFiles, 'text', `${numDirtyFiles} UNSAVED`);
+      set(this.indicators.numDirtyFiles, 'hide', numDirtyFiles === 0);
     }
   }
 }

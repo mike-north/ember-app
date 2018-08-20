@@ -2,6 +2,7 @@ import { store } from '@ember-app/data';
 import { FileRecord } from '@ember-app/data/schema';
 import ProjectFolder from './folder';
 import { RecordObject, SaveResult } from '@ember-app/project/base';
+import { set } from '@ember/object';
 
 export interface FileAbbrevJSON {
   name: string;
@@ -75,6 +76,7 @@ export default class ProjectFile<
   }
   public set contents(newVal: string) {
     this.record.attributes.contents = newVal;
+    set(this as any, 'isDirty', true);
   }
   public toJSON(): FileAbbrevJSON {
     const { fileName: name, contents } = this;
@@ -86,6 +88,7 @@ export default class ProjectFile<
   public async save(): Promise<SaveResult<R>> {
     try {
       await store.update(t => t.replaceRecord(this.record));
+      set(this as any, 'isDirty', false);
       return ['ok', this.record];
     } catch (e) {
       return ['error', e];

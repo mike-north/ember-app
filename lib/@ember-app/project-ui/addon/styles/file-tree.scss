@@ -31,6 +31,19 @@
   & > .file-tree__child-list {
     padding-left: 0;
   }
+  .dot.right {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: white;
+    float: right;
+    margin-top: ($file-icon-size - 2px)/2;
+    margin-right: 4px;
+    line-height: 1rem;
+    &.yellow {
+      background-color: darkgoldenrod;
+    }
+  }
   li {
     color: $folder-text-color;
     user-select: none;
