@@ -1,12 +1,60 @@
 .project-editor header {
+  background: $darker-grey;
   height: $header-height;
   overflow: hidden;
-  padding: 10px;
   color: #fff;
   z-index: 900;
-  h1.title {
+  .title {
     font-weight: 300;
     font-size: 1.3rem;
-    margin: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .header-buttons {
+    button {
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+    }
+    &.right {
+      float: right;
+      &:last-child {
+        margin-right: 20px;
+      }
+    }
+    &.left {
+      &:first-child {
+        margin-left: 20px;
+      }
+    }
+    .header-button {
+      $ht: $header-height - 16px;
+      text-decoration: none;
+      background: $darker-grey;
+      box-sizing: content-box;
+      border: 1px solid $dark-grey;
+      color: $light-grey;
+      text-align: center;
+      display: inline-block;
+      height: $ht;
+      line-height: $ht;
+      min-width: $ht;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      padding-top: 2px;
+      font-size: 0.8rem;
+      padding-left: 4px;
+      padding-right: 4px;
+      border-radius: 2px;
+      &:hover {
+        border-color: skyblue;
+        background: $dark-grey;
+        box-shadow: 0 0 2px rgba(255, 255, 255, 0.6);
+      }
+      &.emoji-button {
+        // line-height: $ht;
+        // padding-right: 0;
+      }
+    }
   }
 }

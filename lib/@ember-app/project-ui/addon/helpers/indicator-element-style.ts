@@ -1,9 +1,9 @@
 import { helper } from '@ember/component/helper';
-import { FooterIndicatorElement } from '@ember-app/project-ui/components/project-editor';
 import { htmlSafe } from '@ember/string';
+import { StatusIndicatorElement } from '../project-editor/indicator-manager';
 
 export function indicatorElementStyle(
-  [elem]: [FooterIndicatorElement] /*, hash*/,
+  [elem]: [StatusIndicatorElement] /*, hash*/,
 ) {
   const parts: [string, string][] = [];
   if (elem.bgColor) {

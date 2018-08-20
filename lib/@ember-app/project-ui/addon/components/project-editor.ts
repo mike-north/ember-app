@@ -1,14 +1,13 @@
 import { CodeEditorKeyCommand } from '@ember-app/code-editor/components/code-editor';
 import Project from '@ember-app/project';
+import StatusIndicatorManager from '@ember-app/project-ui/project-editor/indicator-manager';
 import ProjectFile from '@ember-app/project/file';
 import ProjectFolder from '@ember-app/project/folder';
 import { classNames } from '@ember-decorators/component';
 import { action } from '@ember-decorators/object';
 import { service } from '@ember-decorators/service';
 import Component from '@ember/component';
-import { set } from '@ember/object';
 import Evented from '@ember/object/evented';
-import { next } from '@ember/runloop';
 import Logger, { Level } from 'bite-log';
 import { keyDown } from 'ember-keyboard';
 import KeyboardService from 'ember-keyboard/services/keyboard';
@@ -16,16 +15,6 @@ import hbs from 'htmlbars-inline-precompile';
 
 const logger = new Logger(Level.debug);
 logger.pushPrefix('ProjectEditor');
-
-export interface FooterIndicatorElement {
-  bgColor?: string;
-  color?: string;
-  text: string;
-}
-
-export interface FooterIndicator {
-  elements: FooterIndicatorElement[];
-}
 
 @classNames('project-editor')
 export default class ProjectEditor extends Component.extend(Evented) {
@@ -37,8 +26,8 @@ export default class ProjectEditor extends Component.extend(Evented) {
   public showHeader!: boolean;
   public showSidebar!: boolean;
   public showFooter!: boolean;
-  public leftFooterIndicators: FooterIndicator[] = [];
-  public rightFooterIndicators: FooterIndicator[] = [];
+  public leftFooterIndicators = new StatusIndicatorManager();
+  public rightFooterIndicators = new StatusIndicatorManager();
   @service
   public keyboard!: KeyboardService;
   public keyboardPriority = 0;
@@ -59,32 +48,6 @@ export default class ProjectEditor extends Component.extend(Evented) {
       this.showSidebar = true;
     }
     this.keyboard.register(this);
-    next(this, 'updateFooterIndicators');
-  }
-
-  public updateFooterIndicators() {
-    const elem = { text: '1 file unsaved', bgColor: 'yellow', color: 'black' };
-    const indicator = {
-      elements: [elem],
-    };
-    let x = 1;
-    const t = setInterval(() => {
-      let s = '';
-      for (let i = 0; i < x; i++) {
-        s += '▊';
-      }
-      set(elem, 'text', `${x++}% ${s}`);
-      if (x > 11) {
-        this.leftFooterIndicators.removeObject(indicator);
-        clearInterval(t);
-      }
-    }, 300);
-    this.leftFooterIndicators.addObject(indicator);
-    this.rightFooterIndicators.addObject({
-      elements: [
-        { text: '77 files awesome', bgColor: 'yellow', color: 'black' },
-      ],
-    });
   }
 
   public didInsertElement() {

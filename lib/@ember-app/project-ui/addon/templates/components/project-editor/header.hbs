@@ -1,3 +1,11 @@
 <header>
-  <h1 class='title'>{{@project.name}}</h1>
+  <span class="header-buttons left">
+    {{link-to '◀' 'index' classNames='back-button header-button emoji-button'}}
+  </span>
+  <span class='title'>{{@project.name}}</span>
+  <span class="header-buttons right">
+    <button class="header-button emoji-button">
+      👨‍💻 <span style='font-family:"mono"'>▾</span>
+    </button>
+  </span>
 </header>

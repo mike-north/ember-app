@@ -1,6 +1,6 @@
 <footer>
   <div class="pull-left">
-  {{#each @leftIndicators as |indicator|}}
+  {{#each @leftIndicators.list as |indicator|}}
     <span class="indicator">
       {{#each indicator.elements as |elem|}}
         <span class="indicator__element" style='{{indicator-element-style elem}}'>
@@ -11,7 +11,7 @@
   {{/each}}
   </div>
   <div class="pull-right">
-  {{#each @rightIndicators as |indicator|}}
+  {{#each @rightIndicators.list as |indicator|}}
     <span class="indicator">
       {{#each indicator.elements as |elem|}}
         <span class="indicator__element" style='{{indicator-element-style elem}}'>
