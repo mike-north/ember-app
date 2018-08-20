@@ -1,16 +1,20 @@
 .project-editor header {
   background: $darker-grey;
-  height: $header-height;
   overflow: hidden;
   color: #fff;
-  z-index: 900;
+  min-height: 42px;
+  box-sizing: border-box;
+  line-height: $header-height;
   .title {
+    line-height: $header-height;
     font-weight: 300;
-    font-size: 1.3rem;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    font-size: 1.1rem;
+    vertical-align: middle;
   }
   .header-buttons {
+    display: inline-block;
+    height: $header-height;
+    line-height: $header-height;
     button {
       margin: 0;
       padding: 0;
@@ -27,33 +31,41 @@
         margin-left: 20px;
       }
     }
+    a,
+    button {
+      margin: 0;
+      padding: 0;
+      border: none;
+      vertical-align: middle;
+      box-sizing: border-box;
+    }
     .header-button {
-      $ht: $header-height - 16px;
+      &:first-child {
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+      &:last-child {
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
+      vertical-align: middle;
+      $ht: $header-height - 10px;
       text-decoration: none;
+      height: $ht;
+      min-width: $ht;
+      line-height: $ht;
       background: $darker-grey;
-      box-sizing: content-box;
       border: 1px solid $dark-grey;
+      margin-bottom: 2px;
+      margin-left: 0;
+      margin-right: 0;
+      padding: 0 8px 0 8px;
       color: $light-grey;
       text-align: center;
       display: inline-block;
-      height: $ht;
-      line-height: $ht;
-      min-width: $ht;
-      margin-top: 4px;
-      margin-bottom: 4px;
-      padding-top: 2px;
-      font-size: 0.8rem;
-      padding-left: 4px;
-      padding-right: 4px;
-      border-radius: 2px;
       &:hover {
         border-color: skyblue;
         background: $dark-grey;
-        box-shadow: 0 0 2px rgba(255, 255, 255, 0.6);
-      }
-      &.emoji-button {
-        // line-height: $ht;
-        // padding-right: 0;
       }
     }
   }

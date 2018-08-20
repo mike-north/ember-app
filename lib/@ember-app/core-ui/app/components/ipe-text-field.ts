@@ -1,0 +1,1 @@
+export { default } from '@ember-app/core-ui/components/ipe-text-field';

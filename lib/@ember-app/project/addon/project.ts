@@ -18,6 +18,7 @@ export default class Project
   }
   set name(val: string) {
     this.record.attributes.name = val;
+    this.save();
   }
   get path() {
     return [];

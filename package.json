@@ -89,6 +89,7 @@
   "ember-addon": {
     "paths": [
       "lib/@ember-app/code-editor",
+      "lib/@ember-app/core-ui",
       "lib/@ember-app/data",
       "lib/@ember-app/project",
       "lib/@ember-app/project-ui"

@@ -2,7 +2,8 @@
   <span class="header-buttons left">
     {{link-to '◀' 'index' classNames='back-button header-button emoji-button'}}
   </span>
-  <span class='title'>{{@project.name}}</span>
+  <span class='title'>
+    {{ipe-text-field value=@project.name onValueChanged=(action (mut @project.name) value='newVal')}}</span>
   <span class="header-buttons right">
     <button class="header-button emoji-button">
       👨‍💻 <span style='font-family:"mono"'>▾</span>

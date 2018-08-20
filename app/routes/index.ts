@@ -9,9 +9,13 @@ export default class Index extends Route {
     const project = await createProjectRecord({
       files: {
         'package.json': '{}',
-        'src/index.ts': 'const x: string = "foo";',
+        'index.html': `<html>
+<body>
+  <h1>Hello Fake Browser</h1>
+</body>
+`,
       },
-      name: 'sample',
+      name: 'HTML only',
     });
     this.transitionTo('project', project.id);
   }
