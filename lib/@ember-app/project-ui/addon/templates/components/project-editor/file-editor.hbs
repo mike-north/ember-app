@@ -2,6 +2,7 @@
   {{project-editor/file-editor/breadcrumb file=file}}
   {{code-editor
     code=file.contents
+    onKeyCommand=(action acts.onEditorKeyCommand file)
     onChange=(action acts.onFileChanged file)
     language=(filetype-to-language file.fileType)}}
 </div>

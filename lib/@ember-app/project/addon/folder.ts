@@ -1,6 +1,4 @@
 import ProjectFile from '@ember-app/project/file';
-import { FileJSON } from './serializer/file';
-import { FolderJSON } from './serializer/folder';
 
 /**
  * A folder in a code project
@@ -33,6 +31,20 @@ export default class ProjectFolder {
 
   get files(): Array<Readonly<ProjectFile>> {
     return this._files || [];
+  }
+
+  get path(): Readonly<string[]> {
+    const parts: string[] = [];
+    let folder: ProjectFolder | null = this || null;
+    while (folder && folder.name !== '') {
+      parts.push(folder.name);
+      folder = folder.parent;
+    }
+    return parts;
+  }
+
+  get pathString(): string {
+    return this.path.join('/');
   }
 
   /**
@@ -136,17 +148,5 @@ export default class ProjectFolder {
     }
     const idx = this._files.indexOf(file);
     this._files.splice(idx, 1);
-  }
-
-  public toJSON(): FolderJSON {
-    const { _name: name, _childFolders } = this;
-    const files: FileJSON[] = (this._files || []).map(f => f.toJSON());
-    if (_childFolders === void 0) {
-      // leaf
-      return { name, files };
-    } else {
-      // non-leaf
-      return { name, files, folders: _childFolders.map(f => f.toJSON()) };
-    }
   }
 }

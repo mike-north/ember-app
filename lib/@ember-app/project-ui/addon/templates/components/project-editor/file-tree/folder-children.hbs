@@ -1,8 +1,19 @@
 <ol class="file-tree__child-list">
   {{#each @model.childFolders as |folder|}}
-    {{project-editor/file-tree/folder model=folder path=(concat @path '/' folder.name) acts=@acts}}
+    {{project-editor/file-tree/folder
+        isActive=(eq @selectedNode folder)
+        selectedNode=@selectedNode
+        model=folder
+        path=(concat @path '/' folder.name)
+        acts=@acts
+    }}
   {{/each}}
   {{#each @model.files as |file|}}
-    {{project-editor/file-tree/file model=file path=(concat @path '/' file.name) acts=@acts}}
+    {{project-editor/file-tree/file
+        isActive=(eq @selectedNode file)
+        model=file
+        path=(concat @path '/' file.name)
+        acts=@acts
+    }}
   {{/each}}
 </ol>

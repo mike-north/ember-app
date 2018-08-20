@@ -1,7 +1,7 @@
 import Coordinator, { SyncStrategy } from '@orbit/coordinator';
 import IndexedDBSource from '@orbit/indexeddb';
 import IndexedDBBucket, { supportsIndexedDB } from '@orbit/indexeddb-bucket';
-import JSONAPISource from '@orbit/jsonapi';
+// import JSONAPISource from '@orbit/jsonapi';
 import LocalStorageBucket from '@orbit/local-storage-bucket';
 import Store from '@orbit/store';
 import Logger, { Level } from 'bite-log';

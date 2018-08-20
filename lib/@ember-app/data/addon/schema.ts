@@ -22,7 +22,7 @@ interface OrbitSchema {
   };
 }
 
-type OrbitRecordAttributes<
+export type OrbitRecordAttributes<
   A extends { [k: string]: any } = {}
 > = keyof A extends never
   ? {}
@@ -30,7 +30,7 @@ type OrbitRecordAttributes<
       attributes: { [K in keyof A]: A[K] };
     };
 
-type OrbitRecordRelationships<
+export type OrbitRecordRelationships<
   R extends { [k: string]: { type: 'hasMany' | 'hasOne' } } = {}
 > = keyof R extends never
   ? {}
@@ -45,8 +45,8 @@ type OrbitRecordRelationships<
     };
 
 // tslint:disable-next-line:max-line-length
-type OrbitRecord<
-  A extends { [k: string]: any },
+export type OrbitRecord<
+  A extends { [k: string]: any } = {},
   R extends { [k: string]: { type: 'hasMany' | 'hasOne' } } = {}
 > = {
   type: keyof SchemaRegistry;

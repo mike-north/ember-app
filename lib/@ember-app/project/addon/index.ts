@@ -1,4 +1,4 @@
-import Project from '@ember-app/project/project';
+// import Project from '@ember-app/project/project';
 
 export { default } from './project';
 

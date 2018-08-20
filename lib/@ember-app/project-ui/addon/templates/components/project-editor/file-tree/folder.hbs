@@ -1,5 +1,9 @@
-<li class='file-tree__folder'>
+<li class='file-tree__folder {{if @isActive 'active' ''}}'>
   <label for="subfolder-{{@path}}"><span class="name">{{@model.name}}</span></label>
-  <input type="checkbox" id="subfolder-{{@path}}" />
-  {{project-editor/file-tree/folder-children model=@model path=(concat @path '/' @model.name) acts=@acts}}
+  <input type="checkbox" id="subfolder-{{@path}}" onClick={{action @acts.onFolderChosen @model}} />
+  {{project-editor/file-tree/folder-children
+      selectedNode=@selectedNode
+      model=@model
+      path=(concat @path '/' @model.name)
+      acts=@acts}}
 </li>

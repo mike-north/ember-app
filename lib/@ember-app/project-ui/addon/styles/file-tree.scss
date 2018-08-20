@@ -11,7 +11,7 @@
   $folder-icon-size: 20px;
   $biggest-icon-size: max($folder-icon-size, $file-icon-size);
   // Dimensions
-  $item-height: 1.3rem;
+  $item-height: 1.5rem;
   $item-space-v: 0.1rem;
   $font-size: 0.8rem;
   $last-child-bottom-pad: 3px;
@@ -34,6 +34,15 @@
   li {
     color: $folder-text-color;
     user-select: none;
+    &.active > a {
+      color: #fff;
+      &:before {
+        background-color: rgba(20, 20, 200, 0.2);
+        border-top: 1px solid rgba(100, 100, 200, 0.8);
+        border-bottom: 1px solid rgba(100, 100, 200, 0.8);
+        margin-top: -1px;
+      }
+    }
     &.file-tree__file {
       margin-left: -1px !important;
       a {
@@ -42,22 +51,22 @@
         background-position-y: ($folder-icon-size - $file-icon-size)/2;
         background-size: $file-icon-size;
         background-repeat: no-repeat;
-        &[href$='.js'] {
+        &[file-name$='.js'] {
           background-image: url(/img/file-type/js.svg);
         }
-        &[href$='.html'] {
+        &[file-name$='.html'] {
           background-image: url(/img/file-type/html.svg);
         }
-        &[href$='.css'] {
+        &[file-name$='.css'] {
           background-image: url(/img/file-type/css.svg);
         }
-        &[href$='.ts'] {
+        &[file-name$='.ts'] {
           background-image: url(/img/file-type/ts.svg);
         }
-        &[href$='.json'] {
+        &[file-name$='.json'] {
           background-image: url(/img/file-type/json.svg);
         }
-        &[href$='.scss'] {
+        &[file-name$='.scss'] {
           background-image: url(/img/file-type/scss.svg);
         }
       }
@@ -78,7 +87,7 @@
         position: absolute;
         left: 0;
         width: 100%;
-        height: $item-height;
+        height: $item-height * 0.8;
       }
       &:hover {
         color: #fff;
@@ -120,9 +129,25 @@
       display: block;
       padding-left: $biggest-icon-size + $icon-right-pad;
     }
+    &.active {
+      & > label:before {
+        background: rgba(20, 20, 200, 0.2);
+        // url(/img/file-tree/default_folder.svg)
+        //   5px -1px no-repeat;
+        // background-size: $folder-icon-size;
+        border-top: 1px solid rgba(100, 100, 200, 0.8);
+        border-bottom: 1px solid rgba(100, 100, 200, 0.8);
+        background-blend-mode: screen;
+      }
+      input:checked + .file-tree__child-list {
+        background: $backround-color
+          url(/img/file-tree/default_folder_opened.svg) 0 -9px no-repeat;
+        background-size: $folder-icon-size;
+      }
+    }
     input:checked + .file-tree__child-list {
       background: $backround-color url(/img/file-tree/default_folder_opened.svg)
-        0 -4px no-repeat;
+        0 -9px no-repeat;
       background-size: $folder-icon-size;
       margin: -1.2em 0 0 0;
       /* 20px */

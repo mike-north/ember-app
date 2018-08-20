@@ -1,47 +1,55 @@
+import { store } from '@ember-app/data';
 import { FileRecord, ProjectRecord } from '@ember-app/data/schema';
-import ProjectFile from './file';
+import { BaseObject, RecordObject, SaveResult } from '@ember-app/project/base';
+import ProjectFile, { FileAbbrevJSON } from './file';
 import ProjectFolder from './folder';
-import { ProjectJSON } from './serializer/project';
 
-export default class Project {
-  protected rootFolder: ProjectFolder = new ProjectFolder('');
-  constructor(protected record: ProjectRecord, files?: FileRecord[]) {
-    if (files !== void 0) {
-      files.map(this.deserializeFile.bind(this));
-    }
-  }
+export interface ProjectAbbrevJSON {
+  name: string;
+  files: FileAbbrevJSON[];
+}
+
+export default class Project
+  extends RecordObject<ProjectRecord, ProjectAbbrevJSON>
+  implements BaseObject {
+  // WritableBaseObject
   get name(): string {
     return this.record.attributes.name;
   }
   set name(val: string) {
     this.record.attributes.name = val;
   }
+  get path() {
+    return [];
+  }
+  // tslint:disable-next-line:no-empty
+  public readonly pathString = '';
+  protected rootFolder: ProjectFolder = new ProjectFolder('');
 
-  public deserializeFile(fileRecord: FileRecord): ProjectFile {
-    const { name } = fileRecord.attributes;
-    const path = name.split('/');
-    // todo: validate filename is ok, and type is supported?
-    const f = new ProjectFile(fileRecord);
-    if (path.length === 1) {
-      // create in project root
-      this.rootFolder.addFile(f);
-    } else {
-      // some subfolder
-      const folderPath = path.slice(0, path.length - 1);
-      const folder = this.getOrCreateFolder(folderPath);
-      folder.addFile(f);
+  constructor(record: ProjectRecord, files?: FileRecord[]) {
+    super(record);
+    if (files !== void 0) {
+      files.map(this.deserializeFile.bind(this));
     }
-    return f;
+  }
+
+  public async save(): Promise<SaveResult<ProjectRecord>> {
+    try {
+      await store.update(t => t.replaceRecord(this.record));
+      return ['ok', this.record];
+    } catch (e) {
+      return ['error', e];
+    }
   }
 
   public allFiles(): Array<Readonly<ProjectFile>> {
     return this.rootFolder.allFiles();
   }
 
-  public toJSON(): ProjectJSON {
+  public toJSON(): ProjectAbbrevJSON {
     return {
+      files: this.allFiles().map(f => f.toJSON()),
       name: this.name,
-      rootFolder: this.rootFolder.toJSON(),
     };
   }
 
@@ -61,7 +69,7 @@ export default class Project {
       );
     }
     const file: Readonly<ProjectFile> | undefined = folder.files.filter(
-      f => f.name === fileName,
+      f => f.fileName === fileName,
     )[0];
     return file || null;
   }
@@ -72,5 +80,22 @@ export default class Project {
 
   protected getOrCreateFolder(nameOrPath: string[]): ProjectFolder {
     return this.rootFolder.getOrCreateChildFolder(nameOrPath);
+  }
+
+  private deserializeFile(fileRecord: FileRecord): ProjectFile {
+    const { name } = fileRecord.attributes;
+    const path = name.split('/');
+    // todo: validate filename is ok, and type is supported?
+    const f = new ProjectFile(fileRecord);
+    if (path.length === 1) {
+      // create in project root
+      this.rootFolder.addFile(f);
+    } else {
+      // some subfolder
+      const folderPath = path.slice(0, path.length - 1);
+      const folder = this.getOrCreateFolder(folderPath);
+      folder.addFile(f);
+    }
+    return f;
   }
 }

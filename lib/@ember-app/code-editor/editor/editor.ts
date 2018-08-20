@@ -17,6 +17,54 @@ export function updateEditor({
     }
   });
 }
+
+function setupKeyBindings(
+  editor: mon.editor.IStandaloneCodeEditor,
+  client: any,
+) {
+  // save
+  editor.addCommand(
+    monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S,
+    function() {
+      client.keyCommand({
+        cmd: true,
+        keys: ['s'],
+      });
+    },
+    '',
+  );
+  // save all
+  editor.addCommand(
+    monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KEY_S,
+    function() {
+      client.keyCommand({
+        cmd: true,
+        shift: true,
+        keys: ['s'],
+      });
+    },
+    '',
+  );
+}
+
+function installResizeWatcher(
+  el: HTMLElement,
+  fn: (...args: any[]) => any,
+  interval: number,
+) {
+  let offset = { width: el.offsetWidth, height: el.offsetHeight };
+  setInterval(() => {
+    const newOffset = { width: el.offsetWidth, height: el.offsetHeight };
+    if (
+      offset.height !== newOffset.height ||
+      offset.width !== newOffset.width
+    ) {
+      offset = newOffset;
+      fn();
+    }
+  }, interval);
+}
+
 export function setupEditor(cfg: {
   theme: string;
   value: string;
@@ -35,9 +83,6 @@ export function setupEditor(cfg: {
         value,
       }));
       const client = await conn.promise;
-      // TODO: when the code is autocompleted we don't get this even firing
-      // For example type a single ', the editor will autocomplete '' we only get
-      // the first ', not ''
       ed.onDidChangeModelContent(event => {
         if (!event) {
           return;
@@ -47,24 +92,7 @@ export function setupEditor(cfg: {
           value: ed.getValue(),
         });
       });
-
-      function installResizeWatcher(
-        el: HTMLElement,
-        fn: (...args: any[]) => any,
-        interval: number,
-      ) {
-        let offset = { width: el.offsetWidth, height: el.offsetHeight };
-        setInterval(() => {
-          const newOffset = { width: el.offsetWidth, height: el.offsetHeight };
-          if (
-            offset.height !== newOffset.height ||
-            offset.width !== newOffset.width
-          ) {
-            offset = newOffset;
-            fn();
-          }
-        }, interval);
-      }
+      setupKeyBindings(ed, client);
       installResizeWatcher(wrapper, editor.layout.bind(editor), 2000);
     }
   });

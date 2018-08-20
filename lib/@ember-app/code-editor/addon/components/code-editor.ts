@@ -2,6 +2,13 @@ import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import Penpal from 'penpal';
 
+export interface CodeEditorKeyCommand {
+  cmd?: boolean;
+  shift?: boolean;
+  alt?: boolean;
+  keys: string[];
+}
+
 export default class CodeEditor extends Component {
   public code?: string;
   public _lastCode?: string = this.code;
@@ -9,12 +16,16 @@ export default class CodeEditor extends Component {
   public _conn!: Penpal.IChildConnectionObject;
   public theme: 'vs-dark' | 'vs-light' = 'vs-dark'; // TODO: proper default value
   public onChange?: (v: string) => any;
+  public onKeyCommand?: (evt: CodeEditorKeyCommand) => any;
 
   public buildEditorOptions(): object {
     const { code, language, theme } = this;
     return { value: code, language, theme };
   }
 
+  public _onKeyCommand(evt: CodeEditorKeyCommand) {
+    this.onKeyCommand && this.onKeyCommand(evt);
+  }
   public onEditorTextChanged({ value }: { value: string; event: any }) {
     if (value === this.code) {
       // if our editor is already up to date
@@ -38,6 +49,7 @@ export default class CodeEditor extends Component {
       appendTo: container,
       methods: {
         onValueChanged: this.onEditorTextChanged.bind(this),
+        keyCommand: this._onKeyCommand.bind(this),
       },
       url: '/ember-app/code-editor/frame.html',
     });

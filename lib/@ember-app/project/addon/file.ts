@@ -1,7 +1,11 @@
 import { store } from '@ember-app/data';
 import { FileRecord } from '@ember-app/data/schema';
 import ProjectFolder from './folder';
-import { FileJSON } from './serializer/file';
+
+export interface FileAbbrevJSON {
+  name: string;
+  contents: string;
+}
 
 export enum FileType {
   JavaScript,
@@ -41,29 +45,26 @@ export default class ProjectFile {
     protected record: Pick<FileRecord, 'attributes'>,
     protected folder?: ProjectFolder,
   ) {}
+
   public get fileType(): FileType {
     if (!this._fileType) {
-      this._fileType = detectFileType(this.name);
+      this._fileType = detectFileType(this.fileName);
     }
     return this._fileType;
   }
 
-  public get fullPath(): string[] {
-    const parts: string[] = [];
-    parts.push(this.name);
-    let folder: ProjectFolder | null = this.folder || null;
-    while (folder) {
-      parts.push(folder.name);
-      folder = folder.parent;
-    }
-    return parts.reverse();
-  }
-  public get path(): string[] {
+  public get path(): Readonly<string[]> {
     return this.record.attributes.name.split('/');
   }
-  public get name(): string {
+  public get pathString(): string {
+    return this.path.join('/');
+  }
+  public get fileName(): string {
     const { path } = this;
     return path[path.length - 1];
+  }
+  public get displayName(): string {
+    return this.fileName;
   }
   public get contents(): string {
     return this.record.attributes.contents;
@@ -71,8 +72,8 @@ export default class ProjectFile {
   public set contents(newVal: string) {
     this.record.attributes.contents = newVal;
   }
-  public toJSON(): FileJSON {
-    const { name, contents } = this;
+  public toJSON(): FileAbbrevJSON {
+    const { fileName: name, contents } = this;
     return {
       contents,
       name,

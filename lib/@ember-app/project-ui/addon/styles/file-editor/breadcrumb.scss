@@ -1,6 +1,6 @@
 .code-editor-breadcrumb {
   background: $dark-grey;
-  padding-top: 0.2rem;
+  padding-top: 0.15rem;
   line-height: 1.6rem;
   &__path {
     padding-left: 1rem;
@@ -13,12 +13,7 @@
   &__path-element {
     display: inline-block;
     &:after {
-      display: inline-block;
-      height: 1rem;
       content: '/';
-    }
-    &:first-child:after {
-      display: none;
     }
     &:last-child:after {
       display: none;

@@ -1537,7 +1537,7 @@ broccoli-node-info@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/broccoli-node-info/-/broccoli-node-info-1.1.0.tgz#3aa2e31e07e5bdb516dd25214f7c45ba1c459412"
 
-broccoli-persistent-filter@^1.1.6, broccoli-persistent-filter@^1.2.0, broccoli-persistent-filter@^1.4.3:
+broccoli-persistent-filter@^1.0.3, broccoli-persistent-filter@^1.1.6, broccoli-persistent-filter@^1.2.0, broccoli-persistent-filter@^1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/broccoli-persistent-filter/-/broccoli-persistent-filter-1.4.3.tgz#3511bc52fc53740cda51621f58a28152d9911bc1"
   dependencies:
@@ -1597,7 +1597,7 @@ broccoli-rollup@^2.1.1:
     symlink-or-copy "^1.1.8"
     walk-sync "^0.3.1"
 
-broccoli-sass-source-maps@^2.1.0:
+broccoli-sass-source-maps@^2.0.0, broccoli-sass-source-maps@^2.1.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/broccoli-sass-source-maps/-/broccoli-sass-source-maps-2.2.0.tgz#1f1a0794136152b096188638b59b42b17a4bdc68"
   dependencies:
@@ -2472,7 +2472,17 @@ ember-cli-htmlbars-inline-precompile@^1.0.0:
     heimdalljs-logger "^0.1.9"
     silent-error "^1.1.0"
 
-ember-cli-htmlbars@^2.0.1:
+ember-cli-htmlbars@^1.1.1:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-1.3.4.tgz#461289724b34af372a6a0c4b6635819156963353"
+  dependencies:
+    broccoli-persistent-filter "^1.0.3"
+    ember-cli-version-checker "^1.0.2"
+    hash-for-dep "^1.0.2"
+    json-stable-stringify "^1.0.0"
+    strip-bom "^2.0.0"
+
+ember-cli-htmlbars@^2.0.1, ember-cli-htmlbars@^2.0.2:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-2.0.4.tgz#0bcda483f14271663c38756e1fd1cb89da6a50cf"
   dependencies:
@@ -2527,6 +2537,15 @@ ember-cli-qunit@^4.3.2:
   dependencies:
     ember-cli-babel "^6.11.0"
     ember-qunit "^3.3.2"
+
+ember-cli-sass@7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-sass/-/ember-cli-sass-7.0.0.tgz#24bdf6e6c13610c57cbddb1f077715588aedcf13"
+  dependencies:
+    broccoli-funnel "^1.0.0"
+    broccoli-merge-trees "^1.1.0"
+    broccoli-sass-source-maps "^2.0.0"
+    ember-cli-version-checker "^1.0.2"
 
 ember-cli-sass@^7.1.7:
   version "7.1.7"
@@ -2626,6 +2645,12 @@ ember-cli-valid-component-name@^1.0.0:
   resolved "https://registry.yarnpkg.com/ember-cli-valid-component-name/-/ember-cli-valid-component-name-1.0.0.tgz#71550ce387e0233065f30b30b1510aa2dfbe87ef"
   dependencies:
     silent-error "^1.0.0"
+
+ember-cli-version-checker@^1.0.2:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/ember-cli-version-checker/-/ember-cli-version-checker-1.3.1.tgz#0bc2d134c830142da64bf9627a0eded10b61ae72"
+  dependencies:
+    semver "^5.3.0"
 
 ember-cli-version-checker@^2.0.0, ember-cli-version-checker@^2.1.0, ember-cli-version-checker@^2.1.1, ember-cli-version-checker@^2.1.2:
   version "2.1.2"
@@ -2821,6 +2846,16 @@ ember-compatibility-helpers@^1.0.0:
     ember-cli-version-checker "^2.1.1"
     semver "^5.4.1"
 
+ember-context-menu@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/ember-context-menu/-/ember-context-menu-0.4.2.tgz#eb69a9ac42d3b03f4cb6beabd9467a5990760e34"
+  dependencies:
+    ember-cli-babel "^6.6.0"
+    ember-cli-htmlbars "^2.0.2"
+    ember-cli-sass "7.0.0"
+    ember-invoke-action "1.5.1"
+    ember-wormhole "0.5.2"
+
 ember-decorators@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/ember-decorators/-/ember-decorators-2.3.1.tgz#aef98f6a3e15666bd414576d07cbfc15d39cfe97"
@@ -2851,6 +2886,18 @@ ember-getowner-polyfill@^2.0.0:
   dependencies:
     ember-cli-version-checker "^2.1.0"
     ember-factory-for-polyfill "^1.3.1"
+
+ember-invoke-action@1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/ember-invoke-action/-/ember-invoke-action-1.5.1.tgz#b6cad51ee729fc227cdbdba83b2b5486f0fa5834"
+  dependencies:
+    ember-cli-babel "^6.6.0"
+
+ember-keyboard@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/ember-keyboard/-/ember-keyboard-3.0.2.tgz#839ab5c32a6b3d3ce0b735728c1e1bc362107464"
+  dependencies:
+    ember-cli-babel "^6.6.0"
 
 ember-load-initializers@^1.1.0:
   version "1.1.0"
@@ -2940,6 +2987,13 @@ ember-source@~3.3.0:
     inflection "^1.12.0"
     jquery "^3.3.1"
     resolve "^1.6.0"
+
+ember-wormhole@0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/ember-wormhole/-/ember-wormhole-0.5.2.tgz#cc0ceb7db4f8b8da0fd852edc81d75cb1dcd92f1"
+  dependencies:
+    ember-cli-babel "^6.0.0"
+    ember-cli-htmlbars "^1.1.1"
 
 emojis-list@^2.0.0:
   version "2.1.0"
@@ -4345,6 +4399,10 @@ json-stable-stringify@^1.0.0, json-stable-stringify@^1.0.1:
 json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
+
+json-typescript@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/json-typescript/-/json-typescript-1.0.1.tgz#9d71a17627a20a61dbbf504e33561030f4eefd7f"
 
 json5@^0.5.0, json5@^0.5.1:
   version "0.5.1"
