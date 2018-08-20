@@ -2,11 +2,13 @@ import { CodeEditorKeyCommand } from '@ember-app/code-editor/components/code-edi
 import Project from '@ember-app/project';
 import ProjectFile from '@ember-app/project/file';
 import ProjectFolder from '@ember-app/project/folder';
-import { classNames, layout } from '@ember-decorators/component';
+import { classNames } from '@ember-decorators/component';
 import { action } from '@ember-decorators/object';
 import { service } from '@ember-decorators/service';
 import Component from '@ember/component';
+import { set } from '@ember/object';
 import Evented from '@ember/object/evented';
+import { next } from '@ember/runloop';
 import Logger, { Level } from 'bite-log';
 import { keyDown } from 'ember-keyboard';
 import KeyboardService from 'ember-keyboard/services/keyboard';
@@ -14,6 +16,16 @@ import hbs from 'htmlbars-inline-precompile';
 
 const logger = new Logger(Level.debug);
 logger.pushPrefix('ProjectEditor');
+
+export interface FooterIndicatorElement {
+  bgColor?: string;
+  color?: string;
+  text: string;
+}
+
+export interface FooterIndicator {
+  elements: FooterIndicatorElement[];
+}
 
 @classNames('project-editor')
 export default class ProjectEditor extends Component.extend(Evented) {
@@ -25,6 +37,8 @@ export default class ProjectEditor extends Component.extend(Evented) {
   public showHeader!: boolean;
   public showSidebar!: boolean;
   public showFooter!: boolean;
+  public leftFooterIndicators: FooterIndicator[] = [];
+  public rightFooterIndicators: FooterIndicator[] = [];
   @service
   public keyboard!: KeyboardService;
   public keyboardPriority = 0;
@@ -45,6 +59,32 @@ export default class ProjectEditor extends Component.extend(Evented) {
       this.showSidebar = true;
     }
     this.keyboard.register(this);
+    next(this, 'updateFooterIndicators');
+  }
+
+  public updateFooterIndicators() {
+    const elem = { text: '1 file unsaved', bgColor: 'yellow', color: 'black' };
+    const indicator = {
+      elements: [elem],
+    };
+    let x = 1;
+    const t = setInterval(() => {
+      let s = '';
+      for (let i = 0; i < x; i++) {
+        s += '▊';
+      }
+      set(elem, 'text', `${x++}% ${s}`);
+      if (x > 11) {
+        this.leftFooterIndicators.removeObject(indicator);
+        clearInterval(t);
+      }
+    }, 300);
+    this.leftFooterIndicators.addObject(indicator);
+    this.rightFooterIndicators.addObject({
+      elements: [
+        { text: '77 files awesome', bgColor: 'yellow', color: 'black' },
+      ],
+    });
   }
 
   public didInsertElement() {
@@ -56,7 +96,9 @@ export default class ProjectEditor extends Component.extend(Evented) {
     });
     this.on(keyDown('KeyS+cmd'), evt => {
       const { file } = this;
-      file && this.cmdSave(file);
+      if (file) {
+        this.cmdSave(file);
+      }
       evt.preventDefault();
     });
   }
@@ -150,7 +192,9 @@ ProjectEditor.prototype.layout = hbs`
           onFileChanged=(action onFileChanged)
         )
       )
-      footer=(component "project-editor/footer"               project=project)
+      footer=(component "project-editor/footer"               project=project
+        indicators=footerIndicators
+      )
     )
   )}}
 {{else}}
@@ -176,7 +220,10 @@ ProjectEditor.prototype.layout = hbs`
     {{project-editor/browser        project=project}}
   </main>
   {{#if showFooter}}
-    {{project-editor/footer           project=project}}
+    {{project-editor/footer           project=project
+      leftIndicators=leftFooterIndicators
+      rightIndicators=rightFooterIndicators
+    }}
   {{/if}}
 {{/if}}
 `;
