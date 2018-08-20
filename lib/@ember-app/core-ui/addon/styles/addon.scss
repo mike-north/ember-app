@@ -1,0 +1,17 @@
+.ipe-editor-text-field {
+  .edit-indicator {
+    margin-left: 5px;
+    svg {
+      color: #999;
+      height: 12px;
+      width: 12px;
+      fill: currentColor;
+    }
+    //   visibility: hidden;
+  }
+  &:hover {
+    .edit-indicator {
+      visibility: visible;
+    }
+  }
+}

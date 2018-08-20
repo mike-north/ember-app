@@ -1,6 +1,7 @@
 import { store } from '@ember-app/data';
 import { FileRecord } from '@ember-app/data/schema';
 import ProjectFolder from './folder';
+import { RecordObject, SaveResult } from '@ember-app/project/base';
 
 export interface FileAbbrevJSON {
   name: string;
@@ -39,13 +40,16 @@ function detectFileType(fileName: string): FileType {
   return FileType.Unknown;
 }
 
-export default class ProjectFile {
+export default class ProjectFile<
+  R extends Pick<FileRecord, 'attributes' | 'type' | 'id'> = Pick<
+    FileRecord,
+    'attributes' | 'type' | 'id'
+  >
+> extends RecordObject<R, FileAbbrevJSON> {
   private _fileType: FileType | null = null;
-  constructor(
-    protected record: Pick<FileRecord, 'attributes'>,
-    protected folder?: ProjectFolder,
-  ) {}
-
+  constructor(protected record: R, protected folder?: ProjectFolder) {
+    super(record);
+  }
   public get fileType(): FileType {
     if (!this._fileType) {
       this._fileType = detectFileType(this.fileName);
@@ -79,8 +83,13 @@ export default class ProjectFile {
       name,
     };
   }
-  public async save() {
-    await store.update(t => t.replaceRecord(this.record));
+  public async save(): Promise<SaveResult<R>> {
+    try {
+      await store.update(t => t.replaceRecord(this.record));
+      return ['ok', this.record];
+    } catch (e) {
+      return ['error', e];
+    }
   }
   public moveToFolder(folder: ProjectFolder) {
     if (this.folder) {

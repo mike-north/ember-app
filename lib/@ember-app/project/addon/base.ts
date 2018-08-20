@@ -13,5 +13,9 @@ export type SaveResult<T> = SuccessResult<T> | ErrorResult;
 export abstract class RecordObject<T extends OrbitRecord, J> {
   constructor(protected record: T) {}
   public abstract async save(): Promise<SaveResult<T>>;
+  protected _isDirty: boolean = false;
+  public get isDirty() {
+    return this._isDirty;
+  }
   public abstract toJSON(): J;
 }
